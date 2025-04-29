@@ -1,0 +1,16 @@
+name: Scoville
+version: '1.0-SNAPSHOT'
+main: dev.meluhdy.scoville.Scoville
+description: The Scoville Network's Main Plugin
+api-version: '1.21'
+load: POSTWORLD
+author: meluwudy
+website: meluhdy.dev
+prefix: Scoville
+
+dependencies:
+  server:
+    Melodia:
+      load: BEFORE
+      required: true
+      join-classpath: true
