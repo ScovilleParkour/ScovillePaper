@@ -7,7 +7,8 @@ import io.papermc.paper.command.brigadier.CommandSourceStack
 
 class Test2Command : MelodiaCommand("2") {
 
-    override fun getChildren(): ArrayList<MelodiaCommand> = arrayListOf()
+    override val children: ArrayList<MelodiaCommand>
+        get() = arrayListOf()
 
     override fun onCommand(context: CommandContext<CommandSourceStack>): Int {
         context.source.sender.sendPlainMessage("2")
