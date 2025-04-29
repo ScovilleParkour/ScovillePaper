@@ -7,7 +7,8 @@ import io.papermc.paper.command.brigadier.CommandSourceStack
 
 class TestCommand : MelodiaCommand("test") {
 
-    override fun getChildren(): ArrayList<MelodiaCommand> = arrayListOf(
+    override val children: ArrayList<MelodiaCommand>
+        get() = arrayListOf(
         Test1Command(),
         Test2Command()
     )

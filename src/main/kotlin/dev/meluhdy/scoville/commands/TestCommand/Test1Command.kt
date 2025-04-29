@@ -10,7 +10,8 @@ import net.kyori.adventure.title.Title
 
 class Test1Command : MelodiaCommand("1") {
 
-    override fun getChildren(): ArrayList<MelodiaCommand> = arrayListOf()
+    override val children: ArrayList<MelodiaCommand>
+        get() = arrayListOf()
 
     @UserOnly
     override fun onCommand(context: CommandContext<CommandSourceStack>): Int {
