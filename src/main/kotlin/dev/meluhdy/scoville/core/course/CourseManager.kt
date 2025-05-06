@@ -1,22 +1,41 @@
 package dev.meluhdy.scoville.core.course
 
 import dev.meluhdy.melodia.manager.MelodiaSavingManager
+import dev.meluhdy.melodia.misc.serialization.MelodiaSerializer
 import dev.meluhdy.scoville.Scoville
+import dev.meluhdy.scoville.core.course.courses.OneJumpCourse
+import dev.meluhdy.scoville.core.course.courses.RankupCourse
+import dev.meluhdy.scoville.core.course.courses.UserCourse
+import dev.meluhdy.scoville.core.serialization.courses.AbstractCourseSerializer
+import dev.meluhdy.scoville.core.serialization.courses.OneJumpCourseSerializer
+import dev.meluhdy.scoville.core.serialization.courses.RankupCourseSerializer
+import dev.meluhdy.scoville.core.serialization.courses.UserCourseSerializer
 import kotlinx.serialization.json.JsonElement
 import java.io.File
 
 object CourseManager : MelodiaSavingManager<AbstractCourse>() {
 
-    override fun getFile(obj: AbstractCourse): File = File(Scoville.plugin.dataFolder, "courses/${obj.uuid}.json")
+    val baseFolder = "${Scoville.plugin.dataFolder.path}${File.separator}courses"
 
-    override fun loadSaves(): Array<File> = arrayOf(File(Scoville.plugin.dataFolder, "courses"))
-
-    override fun serializeObject(obj: AbstractCourse): JsonElement {
-        TODO("Not yet implemented")
+    override fun getFile(obj: AbstractCourse): File = when (obj) {
+        is OneJumpCourse -> File("$baseFolder${File.separator}oj", "${obj.uuid}.json")
+        is RankupCourse -> File("$baseFolder${File.separator}rankup", "${obj.uuid}.json")
+        is UserCourse -> File("$baseFolder${File.separator}user", "${obj.uuid}.json")
+        else -> File(baseFolder, "${obj.uuid}.json")
     }
 
-    override fun deserializeObject(jsonElement: JsonElement): AbstractCourse {
-        TODO("Not yet implemented")
+    override fun loadSaves(): Array<File> {
+        val out = ArrayList<File>()
+        out.addAll(File(baseFolder, "oj").listFiles() as Array<File>)
+        out.addAll(File(baseFolder, "rankup").listFiles() as Array<File>)
+        out.addAll(File(baseFolder, "user").listFiles() as Array<File>)
+        return out.toTypedArray()
     }
+
+    override fun serializeObject(obj: AbstractCourse): JsonElement = serializer.encodeToJsonElement(
+        AbstractCourseSerializer.getSerializer(obj) as MelodiaSerializer<AbstractCourse>, obj)
+
+    override fun deserializeObject(jsonElement: JsonElement): AbstractCourse = serializer.decodeFromJsonElement(
+        AbstractCourseSerializer.getSerializer(jsonElement) as MelodiaSerializer<AbstractCourse>, jsonElement)
 
 }

@@ -19,5 +19,6 @@ class UserCourse(uuid: UUID = UUID.randomUUID(), timeCreated: Long = System.curr
     }
 
     lateinit var difficulty: Difficulty
+    override var courseType = CourseType.USER
 
 }

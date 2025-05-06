@@ -17,10 +17,11 @@ abstract class AbstractCourse(uuid: UUID = UUID.randomUUID(), val timeCreated: L
         ONEJUMP(OneJumpCourse::class)
     }
 
-    lateinit var name: String
-    lateinit var coloredName: String
-    lateinit var authors: List<UUID>
-    lateinit var startLocation: Location
-    lateinit var baseStack: ItemStack
+    open lateinit var name: String
+    open lateinit var coloredName: String
+    open lateinit var authors: List<UUID>
+    open lateinit var startLocation: Location
+    open lateinit var baseStack: ItemStack
+    open lateinit var courseType: CourseType
 
 }

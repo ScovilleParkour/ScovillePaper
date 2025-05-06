@@ -12,6 +12,7 @@ import dev.meluhdy.melodia.utils.TranslatedString
 import dev.meluhdy.melodia.utils.TranslationFolder
 import dev.meluhdy.melodia.utils.fromMiniMessage
 import dev.meluhdy.scoville.achievement.AchievementManager
+import dev.meluhdy.scoville.core.course.CourseManager
 import dev.meluhdy.scoville.core.course.courses.UserCourse
 import dev.meluhdy.scoville.core.serialization.courses.UserCourseSerializer
 import dev.meluhdy.scoville.event.listener.AchievementBroadcastListener
@@ -61,14 +62,20 @@ class Scoville : MelodiaPlugin() {
         course.startLocation = Location(Bukkit.getWorlds()[0], 0.0, 10.0, 20.0, 30.0f, 40.0f)
         course.baseStack = ItemUtils.createSkull("http://textures.minecraft.net/texture/99c6a378a72da175831c9394fa45eb7343f31d7d058fa76a9a646be007b7888d")
 
-        val json = Json.encodeToString(UserCourseSerializer(), course)
-        logger.info(json)
+        CourseManager.add(course)
 
-        val newCourse = Json.decodeFromString(UserCourseSerializer(), json)
-        logger.info("${newCourse.name} has item ${newCourse.baseStack.type}")
+        val json = CourseManager.serializeObject(CourseManager.get(course.uuid)!!)
+        logger.info(Json.encodeToString(json))
+
+        val newCourse = CourseManager.deserializeObject(json) as UserCourse
+        logger.info("${newCourse.name} has item ${newCourse.baseStack.type} and diff ${newCourse.difficulty}")
         if (newCourse.baseStack.itemMeta is SkullMeta) logger.info("Skull URL: ${(newCourse.baseStack.itemMeta as SkullMeta).playerProfile!!.textures.skin}")
 
         AchievementManager
+    }
+
+    override fun onDisable() {
+        CourseManager.save()
     }
 
 }
