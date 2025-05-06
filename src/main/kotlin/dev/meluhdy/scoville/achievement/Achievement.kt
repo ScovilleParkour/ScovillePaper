@@ -11,7 +11,8 @@ import org.bukkit.event.player.PlayerEvent
 import org.bukkit.inventory.ItemStack
 import java.lang.reflect.ParameterizedType
 
-abstract class Achievement<T: PlayerEvent>: MelodiaItem(), Listener {
+// UUID is not used here, use achievementId instead
+abstract class Achievement<T: PlayerEvent>(): MelodiaItem(), Listener {
 
     init {
         @Suppress("UNCHECKED_CAST")
@@ -27,6 +28,8 @@ abstract class Achievement<T: PlayerEvent>: MelodiaItem(), Listener {
         HARD('c'),
         SPECIAL('f')
     }
+
+    abstract val achievementId: String
 
     abstract val nameId: String
 

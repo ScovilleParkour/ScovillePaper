@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm") version "2.2.0-Beta1"
     id("com.gradleup.shadow") version "8.3.0"
     id("xyz.jpenilla.run-paper") version "2.3.1"
+    kotlin("plugin.serialization") version "2.1.20"
 }
 
 group = "dev.meluhdy"
@@ -19,7 +20,6 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compileOnly(files(project.findProperty("melodiaPath") as String))
 }
 
@@ -47,5 +47,12 @@ tasks.processResources {
     filteringCharset = "UTF-8"
     filesMatching("paper-plugin.yml") {
         expand(props)
+    }
+}
+
+tasks.shadowJar {
+    dependencies {
+        exclude(dependency("org.jetbrains.kotlin:.*"))
+        exclude(dependency("org.jetbrains.kotlinx:kotlinx-serialization-core"))
     }
 }
