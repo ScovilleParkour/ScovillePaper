@@ -1,4 +1,4 @@
-package dev.meluhdy.scoville.core.serialization.courses
+package dev.meluhdy.scoville.serialization.course
 
 import dev.meluhdy.melodia.misc.serialization.ItemStackSerializer
 import dev.meluhdy.melodia.misc.serialization.LocationSerializer
@@ -8,7 +8,6 @@ import dev.meluhdy.melodia.misc.serialization.UUIDSerializer
 import dev.meluhdy.scoville.core.course.AbstractCourse
 import dev.meluhdy.scoville.core.course.courses.OneJumpCourse
 import dev.meluhdy.scoville.core.course.courses.RankupCourse
-import dev.meluhdy.scoville.core.course.courses.UserCourse
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.JsonElement

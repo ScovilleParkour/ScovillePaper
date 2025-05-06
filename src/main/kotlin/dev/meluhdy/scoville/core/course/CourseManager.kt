@@ -6,10 +6,7 @@ import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.core.course.courses.OneJumpCourse
 import dev.meluhdy.scoville.core.course.courses.RankupCourse
 import dev.meluhdy.scoville.core.course.courses.UserCourse
-import dev.meluhdy.scoville.core.serialization.courses.AbstractCourseSerializer
-import dev.meluhdy.scoville.core.serialization.courses.OneJumpCourseSerializer
-import dev.meluhdy.scoville.core.serialization.courses.RankupCourseSerializer
-import dev.meluhdy.scoville.core.serialization.courses.UserCourseSerializer
+import dev.meluhdy.scoville.serialization.course.AbstractCourseSerializer
 import kotlinx.serialization.json.JsonElement
 import java.io.File
 

@@ -2,6 +2,7 @@ package dev.meluhdy.scoville.achievement
 
 import dev.meluhdy.melodia.manager.MelodiaItem
 import dev.meluhdy.scoville.Scoville.Companion.plugin
+import dev.meluhdy.scoville.core.parkourer.ParkourerManager
 import dev.meluhdy.scoville.event.event.GrantAchievementEvent
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -40,8 +41,10 @@ abstract class Achievement<T: PlayerEvent>(): MelodiaItem(), Listener {
     abstract val baseStack: ItemStack
 
     fun triggerImpl(event: T) {
-        // TODO: Ensure player doesn't already have achievement
+        val parkourer = ParkourerManager.get(event.player) ?: return
+        if (parkourer.hasAchievement(this)) return
         if (check(event)) {
+            parkourer.grantAchievement(this)
             Bukkit.getPluginManager().callEvent(GrantAchievementEvent(event.player, this))
             onAchievementGet(event.player)
         }

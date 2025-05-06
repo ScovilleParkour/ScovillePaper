@@ -1,0 +1,27 @@
+package dev.meluhdy.scoville.core.parkourer
+
+import dev.meluhdy.melodia.manager.MelodiaSavingManager
+import dev.meluhdy.scoville.Scoville
+import dev.meluhdy.scoville.serialization.parkourer.ParkourerSerializer
+import kotlinx.serialization.json.JsonElement
+import org.bukkit.entity.Player
+import java.io.File
+
+object ParkourerManager: MelodiaSavingManager<Parkourer>() {
+
+    val baseFolder
+        get() = "${Scoville.plugin.dataFolder}${File.separator}players"
+
+    fun get(player: Player): Parkourer? = get(player.uniqueId)
+
+    fun getOrCreate(player: Player, factory: () -> Parkourer): Parkourer = getOrCreate(player.uniqueId, factory)
+
+    override fun getFile(obj: Parkourer): File = File(baseFolder, "${obj.uuid}.json")
+
+    override fun loadSaves(): Array<File> = File(baseFolder).listFiles() ?: arrayOf()
+
+    override fun serializeObject(obj: Parkourer): JsonElement = serializer.encodeToJsonElement(ParkourerSerializer, obj)
+
+    override fun deserializeObject(jsonElement: JsonElement): Parkourer = serializer.decodeFromJsonElement(ParkourerSerializer, jsonElement)
+
+}

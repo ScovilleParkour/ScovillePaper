@@ -1,4 +1,4 @@
-package dev.meluhdy.scoville.core.serialization.courses
+package dev.meluhdy.scoville.serialization.course
 
 import dev.meluhdy.melodia.misc.serialization.SerializerElement
 import dev.meluhdy.scoville.core.course.courses.UserCourse
