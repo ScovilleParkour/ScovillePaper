@@ -2,8 +2,6 @@ package dev.meluhdy.scoville.serialization.parkourer
 
 import dev.meluhdy.melodia.misc.serialization.MelodiaSerializer
 import dev.meluhdy.melodia.misc.serialization.SerializerElement
-import dev.meluhdy.scoville.achievement.Achievement
-import dev.meluhdy.scoville.achievement.AchievementManager
 import dev.meluhdy.scoville.core.parkourer.Parkourer
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.nullable

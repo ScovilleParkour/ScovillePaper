@@ -7,7 +7,6 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
-// UUID is not used here
 object TestAchievement: Achievement<AsyncChatEvent>() {
 
     override val achievementId: String = "testAchievement"
