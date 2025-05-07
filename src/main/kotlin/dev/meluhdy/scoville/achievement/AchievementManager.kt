@@ -9,4 +9,6 @@ object AchievementManager : MelodiaManager<Achievement<*>>() {
         add(TestAchievement)
     }
 
+    fun get(achievementID: String): Achievement<*>? = get { ach -> ach.achievementId == achievementID }
+
 }

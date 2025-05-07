@@ -8,6 +8,7 @@ import dev.meluhdy.melodia.utils.ItemUtils
 import dev.meluhdy.melodia.utils.LoggingUtils
 import dev.meluhdy.melodia.utils.TranslationFolder
 import dev.meluhdy.scoville.achievement.AchievementManager
+import dev.meluhdy.scoville.command.PKCommand
 import dev.meluhdy.scoville.core.course.CourseManager
 import dev.meluhdy.scoville.core.course.courses.UserCourse
 import dev.meluhdy.scoville.core.parkourer.ParkourerManager
@@ -27,7 +28,9 @@ class Scoville : MelodiaPlugin() {
         lateinit var plugin: MelodiaPlugin
     }
 
-    override val melodiaCommands: Array<MelodiaCommand> = arrayOf()
+    override val melodiaCommands: Array<MelodiaCommand> = arrayOf(
+        PKCommand()
+    )
 
     override val resourceFiles: Array<String> = arrayOf(
         "lang/en.properties",
@@ -55,9 +58,9 @@ class Scoville : MelodiaPlugin() {
 
     override fun onEnable() {
 
-        super.onEnable()
-
         AchievementManager
+
+        super.onEnable()
 
     }
 
