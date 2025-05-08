@@ -8,6 +8,7 @@ import dev.meluhdy.melodia.utils.LoggingUtils
 import dev.meluhdy.melodia.utils.TranslationFolder
 import dev.meluhdy.scoville.achievement.AchievementManager
 import dev.meluhdy.scoville.command.PKCommand
+import dev.meluhdy.scoville.core.course.CourseManager
 import dev.meluhdy.scoville.core.parkourer.ParkourerManager
 import dev.meluhdy.scoville.event.listener.AchievementBroadcastListener
 import dev.meluhdy.scoville.event.listener.CreateParkourerListener
@@ -41,7 +42,8 @@ class Scoville : MelodiaPlugin() {
     override val logger: ConsoleLogger = ConsoleLogger("Scoville", LoggingUtils.ConsoleLevel.DEBUG)
 
     override val savingManagers: Array<MelodiaSavingManager<*>> = arrayOf(
-        ParkourerManager
+        ParkourerManager,
+        CourseManager
     )
 
     override fun onLoad() {

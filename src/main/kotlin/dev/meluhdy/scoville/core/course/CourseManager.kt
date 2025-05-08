@@ -12,7 +12,8 @@ import java.io.File
 
 object CourseManager : MelodiaSavingManager<AbstractCourse>() {
 
-    val baseFolder = "${Scoville.plugin.dataFolder.path}${File.separator}courses"
+    val baseFolder
+        get() = "${Scoville.plugin.dataFolder.path}${File.separator}courses"
 
     override fun getFile(obj: AbstractCourse): File = when (obj) {
         is OneJumpCourse -> File("$baseFolder${File.separator}oj", "${obj.uuid}.json")
@@ -23,9 +24,9 @@ object CourseManager : MelodiaSavingManager<AbstractCourse>() {
 
     override fun loadSaves(): Array<File> {
         val out = ArrayList<File>()
-        out.addAll(File(baseFolder, "oj").listFiles() as Array<File>)
-        out.addAll(File(baseFolder, "rankup").listFiles() as Array<File>)
-        out.addAll(File(baseFolder, "user").listFiles() as Array<File>)
+        out.addAll(File(baseFolder, "oj").listFiles() ?: arrayOf())
+        out.addAll(File(baseFolder, "rankup").listFiles() ?: arrayOf())
+        out.addAll(File(baseFolder, "user").listFiles() ?: arrayOf())
         return out.toTypedArray()
     }
 
