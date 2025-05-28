@@ -12,6 +12,7 @@ class GrantAchievementEvent(p: Player, val ach: Achievement<*>) : PlayerEvent(p,
         val HANDLERS: HandlerList = HandlerList()
 
         @JvmStatic
+        @Suppress("unused")
         fun getHandlerList(): HandlerList = HANDLERS
     }
 

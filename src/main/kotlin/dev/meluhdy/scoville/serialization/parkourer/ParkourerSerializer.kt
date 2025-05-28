@@ -27,8 +27,8 @@ object ParkourerSerializer: MelodiaSerializer<Parkourer>() {
     override val builder: Builder<Parkourer> = ParkourerBuilder()
 
     override val steps: Array<SerializerElement<*, Parkourer>> = arrayOf(
-        SerializerElement<String?, Parkourer>("currentlyPlaying", String.serializer().nullable, { it.currentlyPlaying?.toString() }, { uuid, builder -> (builder as ParkourerBuilder).currentlyPlaying = uuid?.let { UUID.fromString(it) } }),
-        SerializerElement<List<String>, Parkourer>("achievements", ListSerializer(String.serializer()), { it.getAchievementList().map { achievement -> achievement.achievementId } }, { list, builder -> (builder as ParkourerBuilder).achievements.addAll(list) })
+        SerializerElement("currentlyPlaying", String.serializer().nullable, { it.currentlyPlaying?.toString() }, { uuid, builder -> (builder as ParkourerBuilder).currentlyPlaying = uuid?.let { UUID.fromString(it) } }),
+        SerializerElement("achievements", ListSerializer(String.serializer()), { it.getAchievementList().map { achievement -> achievement.achievementId } }, { list, builder -> (builder as ParkourerBuilder).achievements.addAll(list) })
     )
 
 }

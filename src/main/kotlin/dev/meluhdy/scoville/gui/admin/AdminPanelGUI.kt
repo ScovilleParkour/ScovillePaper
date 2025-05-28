@@ -8,6 +8,7 @@ import dev.meluhdy.melodia.utils.TranslatedString
 import dev.meluhdy.melodia.utils.fromMiniMessage
 import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.gui.IScovilleGUI
+import dev.meluhdy.scoville.gui.admin.course.CourseAdminGUI
 import net.kyori.adventure.text.TextComponent
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -22,7 +23,7 @@ class AdminPanelGUI(p: Player, pg: MelodiaGUI): MelodiaGUI(Scoville.plugin, p, p
             getTitle(p, TranslatedString("menu.admin.courses.title", arrayOf())),
             *getDesc(p, TranslatedString("menu.admin.courses.desc", arrayOf()))
         )) {
-            it.whoClicked.sendMessage("Courses")
+            CourseAdminGUI(p, this).open()
         },
         MelodiaGUIItem(22, ItemUtils.createSkull(p.uniqueId, 1,
             getTitle(p, TranslatedString("menu.admin.players.title", arrayOf())),

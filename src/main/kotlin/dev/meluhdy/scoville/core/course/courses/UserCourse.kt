@@ -6,6 +6,7 @@ import java.util.UUID
 class UserCourse(uuid: UUID = UUID.randomUUID(), timeCreated: Long = System.currentTimeMillis()) : AbstractCourse(uuid) {
 
     enum class Difficulty() {
+        UNKNOWN,
         SWEET,
         TANGY,
         SAVORY,
@@ -18,7 +19,7 @@ class UserCourse(uuid: UUID = UUID.randomUUID(), timeCreated: Long = System.curr
         BLAZING
     }
 
-    lateinit var difficulty: Difficulty
+    var difficulty: Difficulty = Difficulty.UNKNOWN
     override var courseType = CourseType.USER
 
 }

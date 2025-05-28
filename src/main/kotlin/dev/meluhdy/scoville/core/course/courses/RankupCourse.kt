@@ -6,6 +6,7 @@ import java.util.UUID
 class RankupCourse(uuid: UUID = UUID.randomUUID(), timeCreated: Long = System.currentTimeMillis()) : AbstractCourse(uuid) {
 
     enum class Rank(val color: Char) {
+        UNKNOWN         ('5'),
         BELL            ('2'),
         PEPPERONCINI    ('2'),
         ANAHEIM         ('2'),
@@ -20,7 +21,7 @@ class RankupCourse(uuid: UUID = UUID.randomUUID(), timeCreated: Long = System.cu
     }
 
     override var authors: List<UUID> = mutableListOf<UUID>(UUID.fromString("1226cf17-80ff-402e-9559-d54384148a33"))
-    lateinit var rank: Rank
+    var rank: Rank = Rank.UNKNOWN
     override var courseType = CourseType.RANKUP
 
 }

@@ -6,7 +6,6 @@ import dev.meluhdy.melodia.gui.MelodiaPaginationGUI
 import dev.meluhdy.melodia.utils.ItemUtils
 import dev.meluhdy.melodia.utils.TextUtils
 import dev.meluhdy.melodia.utils.TranslatedString
-import dev.meluhdy.melodia.utils.fromMiniMessage
 import dev.meluhdy.melodia.utils.uuid.UUIDManager
 import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.core.course.AbstractCourse
@@ -37,7 +36,7 @@ class CourseGUI(p: Player, pg: MelodiaGUI?): MelodiaPaginationGUI<UserCourse>(Sc
         val rateBars = '✦'
         val wlrBarCount = 20
         val rateBarCount = 5
-        val colorMap = hashMapOf<Int, Char>(
+        val colorMap = hashMapOf(
             0 to '8',
             1 to '4',
             2 to 'c',
@@ -52,9 +51,8 @@ class CourseGUI(p: Player, pg: MelodiaGUI?): MelodiaPaginationGUI<UserCourse>(Sc
 
         return MelodiaGUIItem(
             pos, ItemUtils.modifyItem(
-                obj.baseStack, getTitle(obj.coloredName), *arrayOf<Component>(
-                    TextUtils.legacyToMiniMessage("&8${obj.authors.joinToString(", ") { uuid -> UUIDManager.getName(uuid) }}")
-                        .fromMiniMessage(),
+                obj.baseStack ?: ItemStack(Material.STONE_BUTTON), getTitle(obj.coloredName ?: ""), *arrayOf(
+                    getTitle("&8${obj.authors.joinToString(", ") { uuid -> UUIDManager.getName(uuid) }}"),
                     getTitle(p, TranslatedString("menu.courses.course.diff.${obj.difficulty.ordinal}", arrayOf())),
                     Component.empty(),
                     getTitle(p, TranslatedString("menu.courses.course.cr", arrayOf())),
@@ -71,6 +69,7 @@ class CourseGUI(p: Player, pg: MelodiaGUI?): MelodiaPaginationGUI<UserCourse>(Sc
 
     override val rows: Int = 5
     override val title: TextComponent = getTitle(p, TranslatedString("menu.courses.title", arrayOf())) as TextComponent
+    override val melodiaItems: ArrayList<MelodiaGUIItem> = arrayListOf()
 
     override fun extraItems() {
         createRow(this, 3)

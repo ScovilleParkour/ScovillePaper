@@ -20,7 +20,7 @@ class RankupCourseSerializer: AbstractCourseSerializer<RankupCourse>() {
     }
 
     override fun extraSteps(): Array<SerializerElement<*, RankupCourse>> = arrayOf(
-        SerializerElement<Int, RankupCourse>("rank", Int.serializer(), { it.rank.ordinal }, { diff, builder -> (builder as RankupCourseBuilder).rank =
+        SerializerElement("rank", Int.serializer(), { it.rank.ordinal }, { diff, builder -> (builder as RankupCourseBuilder).rank =
             RankupCourse.Rank.entries[diff] })
     )
 

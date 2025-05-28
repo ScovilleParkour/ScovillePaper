@@ -49,6 +49,7 @@ interface IScovilleGUI {
         if (curr.prevGUI != null) curr.prevGUI!!.open()
         else curr.p.closeInventory()
     }
+    fun getNext(p: Player) = ItemUtils.createItem(Material.ARROW, 1, getTitle(p, TranslatedString("menu.generic.next.title", arrayOf())))
 
     fun getTitle(p: Player, ts: TranslatedString): Component = TextUtils.legacyToMiniMessage(TextUtils.translate(Scoville.plugin, ts.id, p.locale(), *ts.args)).fromMiniMessage()
     fun getTitle(s: String): Component = TextUtils.legacyToMiniMessage(s).fromMiniMessage()

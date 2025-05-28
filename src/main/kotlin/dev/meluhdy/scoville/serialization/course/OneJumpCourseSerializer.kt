@@ -22,9 +22,9 @@ class OneJumpCourseSerializer: AbstractCourseSerializer<OneJumpCourse>() {
     }
 
     override fun extraSteps(): Array<SerializerElement<*, OneJumpCourse>> = arrayOf(
-        SerializerElement<Int, OneJumpCourse>("difficulty", Int.serializer(), { it.difficulty.ordinal }, { diff, builder -> (builder as OneJumpCourseBuilder).difficulty =
+        SerializerElement("difficulty", Int.serializer(), { it.difficulty.ordinal }, { diff, builder -> (builder as OneJumpCourseBuilder).difficulty =
             OneJumpCourse.OJDifficulty.entries[diff] }),
-        SerializerElement<Int, OneJumpCourse>("jumps", Int.serializer(), { it.jumps }, { jumps, builder -> (builder as OneJumpCourseBuilder).jumps = jumps })
+        SerializerElement("jumps", Int.serializer(), { it.jumps }, { jumps, builder -> (builder as OneJumpCourseBuilder).jumps = jumps })
     )
 
     override val builder: Builder<OneJumpCourse> = OneJumpCourseBuilder()

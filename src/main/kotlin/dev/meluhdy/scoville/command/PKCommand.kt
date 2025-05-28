@@ -14,7 +14,6 @@ class PKCommand: MelodiaCommand("pk") {
         MenuCommand()
     )
 
-    @Suppress("Unstable")
     override fun onCommand(context: CommandContext<CommandSourceStack>): Int {
         context.source.sender.sendMessage(Component.text("No"))
         return Command.SINGLE_SUCCESS

@@ -8,16 +8,17 @@ import java.util.UUID
 abstract class AbstractCourse(uuid: UUID = UUID.randomUUID(), val timeCreated: Long = System.currentTimeMillis()) : MelodiaItem(uuid) {
 
     enum class CourseType() {
+        UNKNOWN,
         USER,
         RANKUP,
         ONEJUMP
     }
 
-    open lateinit var name: String
-    open lateinit var coloredName: String
-    open lateinit var authors: List<UUID>
-    open lateinit var startLocation: Location
-    open lateinit var baseStack: ItemStack
-    open lateinit var courseType: CourseType
+    open var name: String? = null
+    open var coloredName: String? = null
+    open var authors: List<UUID> = listOf()
+    open var startLocation: Location? = null
+    open var baseStack: ItemStack? = null
+    open var courseType: CourseType = CourseType.UNKNOWN
 
 }

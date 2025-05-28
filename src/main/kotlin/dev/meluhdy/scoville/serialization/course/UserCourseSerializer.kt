@@ -20,7 +20,7 @@ class UserCourseSerializer: AbstractCourseSerializer<UserCourse>() {
     }
 
     override fun extraSteps(): Array<SerializerElement<*, UserCourse>> = arrayOf(
-        SerializerElement<Int, UserCourse>("difficulty", Int.serializer(), { it.difficulty.ordinal }, { diff, builder -> (builder as UserCourseBuilder).difficulty = UserCourse.Difficulty.entries[diff] })
+        SerializerElement("difficulty", Int.serializer(), { it.difficulty.ordinal }, { diff, builder -> (builder as UserCourseBuilder).difficulty = UserCourse.Difficulty.entries[diff] })
     )
 
     override val builder: Builder<UserCourse> = UserCourseBuilder()

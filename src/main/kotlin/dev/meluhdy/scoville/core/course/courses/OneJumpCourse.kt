@@ -21,7 +21,7 @@ class OneJumpCourse(uuid: UUID = UUID.randomUUID(), timeCreated: Long = System.c
     }
 
     override var courseType = CourseType.ONEJUMP
-    lateinit var difficulty: OJDifficulty
+    var difficulty: OJDifficulty = OJDifficulty.UNKNOWN
     var jumps: Int = 0
 
 }

@@ -9,6 +9,7 @@ import dev.meluhdy.scoville.core.course.AbstractCourse
 import dev.meluhdy.scoville.core.course.courses.OneJumpCourse
 import dev.meluhdy.scoville.core.course.courses.RankupCourse
 import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.nullable
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.int
@@ -29,20 +30,21 @@ abstract class AbstractCourseSerializer<T: AbstractCourse>: MelodiaSerializer<T>
         }
 
         fun getSerializer(element: JsonElement): MelodiaSerializer<out AbstractCourse> = when(AbstractCourse.CourseType.entries[element.jsonObject["type"]?.jsonPrimitive?.int!!]) {
+            AbstractCourse.CourseType.UNKNOWN -> throw IllegalArgumentException("Trying to serialize unknown course type!")
             AbstractCourse.CourseType.USER -> UserCourseSerializer()
             AbstractCourse.CourseType.RANKUP -> RankupCourseSerializer()
             AbstractCourse.CourseType.ONEJUMP -> OneJumpCourseSerializer()
         }
     }
 
-    abstract class AbstractCourseBuilder<T: AbstractCourse>: Builder<T>() {
+    abstract class AbstractCourseBuilder<T: AbstractCourse>(): Builder<T>() {
 
-        lateinit var name: String
-        lateinit var coloredName: String
-        lateinit var authors: List<UUID>
-        lateinit var startLocation: Location
-        lateinit var baseStack: ItemStack
-        lateinit var type: AbstractCourse.CourseType
+        var name: String? = null
+        var coloredName: String? = null
+        var authors: List<UUID> = listOf()
+        var startLocation: Location? = null
+        var baseStack: ItemStack? = null
+        var type: AbstractCourse.CourseType = AbstractCourse.CourseType.UNKNOWN
         var timeCreated: Long = 0
 
         abstract val clazz: KClass<T>
@@ -66,11 +68,11 @@ abstract class AbstractCourseSerializer<T: AbstractCourse>: MelodiaSerializer<T>
     override val steps: Array<SerializerElement<*, T>>
         get() {
             val out = arrayListOf<SerializerElement<*, T>>()
-            out.add(SerializerElement<String, T>("name", String.serializer(), { it.name }, { name, builder -> (builder as AbstractCourseBuilder).name = name }))
-            out.add(SerializerElement<String, T>("coloredName", String.serializer(), { it.coloredName }, { coloredName, builder -> (builder as AbstractCourseBuilder).coloredName = coloredName }))
+            out.add(SerializerElement<String?, T>("name", String.serializer().nullable, { it.name }, { name, builder -> (builder as AbstractCourseBuilder).name = name }))
+            out.add(SerializerElement<String?, T>("coloredName", String.serializer().nullable, { it.coloredName }, { coloredName, builder -> (builder as AbstractCourseBuilder).coloredName = coloredName }))
             out.add(SerializerElement<List<UUID>, T>("authors", ListSerializer(UUIDSerializer()), { it.authors }, { authors, builder -> (builder as AbstractCourseBuilder).authors = authors }))
-            out.add(SerializerElement<Location, T>("startLoc", LocationSerializer(), { it.startLocation }, { loc, builder -> (builder as AbstractCourseBuilder).startLocation = loc }))
-            out.add(SerializerElement<ItemStack, T>("baseStack", ItemStackSerializer(), { it.baseStack }, { baseStack, builder -> (builder as AbstractCourseBuilder).baseStack = baseStack }))
+            out.add(SerializerElement<Location?, T>("startLoc", LocationSerializer().nullable, { it.startLocation }, { loc, builder -> (builder as AbstractCourseBuilder).startLocation = loc }))
+            out.add(SerializerElement<ItemStack?, T>("baseStack", ItemStackSerializer().nullable, { it.baseStack }, { baseStack, builder -> (builder as AbstractCourseBuilder).baseStack = baseStack }))
             out.add(SerializerElement<Long, T>("timeCreated", Long.serializer(), { it.timeCreated }, { timeCreated, builder -> (builder as AbstractCourseBuilder).timeCreated = timeCreated }))
             out.add(SerializerElement<Int, T>("type", Int.serializer(), { it.courseType.ordinal }, { type, builder -> (builder as AbstractCourseBuilder).type = AbstractCourse.CourseType.entries[type] }))
             out.addAll(extraSteps())

@@ -14,7 +14,6 @@ class MenuCommand: MelodiaCommand("menu") {
     override val children: ArrayList<MelodiaCommand> = arrayListOf()
 
     @UserOnly
-
     override fun onCommand(context: CommandContext<CommandSourceStack>): Int {
         MainMenuGUI(context.source.sender as Player).open()
         return Command.SINGLE_SUCCESS
