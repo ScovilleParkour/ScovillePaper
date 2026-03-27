@@ -6,6 +6,8 @@ import dev.meluhdy.melodia.utils.ItemUtils
 import dev.meluhdy.melodia.utils.TranslatedString
 import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.gui.admin.AdminPanelGUI
+import dev.meluhdy.scoville.gui.course.CourseGUI
+import dev.meluhdy.scoville.gui.course.CourseTypeGUI
 import net.kyori.adventure.text.TextComponent
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -30,7 +32,7 @@ class MainMenuGUI(player: Player): MelodiaGUI(Scoville.plugin, player), IScovill
                     getTitle(p, TranslatedString("menu.main.courses.title", arrayOf())),
                     *getDesc(p, TranslatedString("menu.main.courses.desc", arrayOf()))
                 )) {
-                    CourseGUI(p, this).open()
+                    CourseTypeGUI(p, this).open()
                 },
                 MelodiaGUIItem(16, ItemUtils.createItem(
                     Material.FEATHER, 1,

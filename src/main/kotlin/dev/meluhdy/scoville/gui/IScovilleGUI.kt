@@ -12,7 +12,7 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import kotlin.math.ceil
 
-private val coloredPanes = arrayOf(
+private val defaultPanes = arrayOf(
     Material.RED_STAINED_GLASS_PANE,
     Material.ORANGE_STAINED_GLASS_PANE,
     Material.YELLOW_STAINED_GLASS_PANE,
@@ -22,24 +22,28 @@ private val coloredPanes = arrayOf(
 
 interface IScovilleGUI {
 
-    fun createRow(inv: MelodiaGUI, row: Int) {
+    fun createRow(inv: MelodiaGUI, row: Int) = createRow(inv, row, defaultPanes)
+
+    fun createRow(inv: MelodiaGUI, row: Int, panes: Array<Material>) {
         if (row > inv.rows) throw IndexOutOfBoundsException("Tried to create row outside of inventory!")
         val start = 9 * row
         for (i in 0..<5) {
-            inv.inv.setItem(start + i, ItemUtils.createItem(coloredPanes[i], 1, getTitle("&r")))
-            inv.inv.setItem(start + 8 - i, ItemUtils.createItem(coloredPanes[i], 1, getTitle("&r")))
+            inv.inv.setItem(start + i, ItemUtils.createItem(panes[i], 1, getTitle("&r")))
+            inv.inv.setItem(start + 8 - i, ItemUtils.createItem(panes[i], 1, getTitle("&r")))
         }
     }
 
-    fun createBorder(inv: MelodiaGUI) {
+    fun createBorder(inv: MelodiaGUI) = createBorder(inv, defaultPanes)
+
+    fun createBorder(inv: MelodiaGUI, panes: Array<Material>) {
         val lastRow = inv.rows - 1
         createRow(inv, 0)
         createRow(inv, lastRow)
         for (i in 1..<ceil(inv.inv.size / 18.0).toInt()) {
-            inv.inv.setItem(9 * i, ItemUtils.createItem(coloredPanes[i], 1, getTitle("&r")))
-            inv.inv.setItem(9 * (lastRow - i), ItemUtils.createItem(coloredPanes[i], 1, getTitle("&r")))
-            inv.inv.setItem(9 * i + 8, ItemUtils.createItem(coloredPanes[i], 1, getTitle("&r")))
-            inv.inv.setItem(9 * (lastRow - i) + 8, ItemUtils.createItem(coloredPanes[i], 1, getTitle("&r")))
+            inv.inv.setItem(9 * i, ItemUtils.createItem(panes[i], 1, getTitle("&r")))
+            inv.inv.setItem(9 * (lastRow - i), ItemUtils.createItem(panes[i], 1, getTitle("&r")))
+            inv.inv.setItem(9 * i + 8, ItemUtils.createItem(panes[i], 1, getTitle("&r")))
+            inv.inv.setItem(9 * (lastRow - i) + 8, ItemUtils.createItem(panes[i], 1, getTitle("&r")))
         }
     }
 
