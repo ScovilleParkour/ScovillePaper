@@ -6,7 +6,6 @@ import dev.meluhdy.melodia.utils.ItemUtils
 import dev.meluhdy.melodia.utils.TranslatedString
 import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.gui.admin.AdminPanelGUI
-import dev.meluhdy.scoville.gui.course.CourseGUI
 import dev.meluhdy.scoville.gui.course.CourseTypeGUI
 import net.kyori.adventure.text.TextComponent
 import org.bukkit.Material

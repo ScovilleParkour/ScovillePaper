@@ -11,7 +11,6 @@ import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.core.course.AbstractCourse
 import dev.meluhdy.scoville.core.course.CourseManager
 import dev.meluhdy.scoville.core.course.courses.OneJumpCourse
-import dev.meluhdy.scoville.core.course.courses.RankupCourse
 import dev.meluhdy.scoville.core.course.courses.UserCourse
 import dev.meluhdy.scoville.gui.IScovilleGUI
 import net.kyori.adventure.text.Component
@@ -24,7 +23,7 @@ import org.bukkit.inventory.ItemStack
 import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
-class CourseGUI(val courseType: AbstractCourse.CourseType, p: Player, pg: MelodiaGUI?): MelodiaPaginationGUI<AbstractCourse>(Scoville.plugin, p, pg),
+class CourseListGUI(val courseType: AbstractCourse.CourseType, p: Player, pg: MelodiaGUI?): MelodiaPaginationGUI<AbstractCourse>(Scoville.plugin, p, pg),
     IScovilleGUI {
 
     override val itemRows: Int = 3
@@ -124,6 +123,15 @@ class CourseGUI(val courseType: AbstractCourse.CourseType, p: Player, pg: Melodi
 
     override val rows: Int = 5
     override val title: TextComponent = getTitle(p, TranslatedString("menu.courses.title", arrayOf())) as TextComponent
+
+    override fun open() {
+        val courses = CourseManager.getAll()
+        Scoville.plugin.logger.debug("Length: ${courses.size}")
+        courses.forEach { course -> Scoville.plugin.logger.debug("Course: ${course.name}") }
+        Scoville.plugin.logger.debug("Filtered Length: ${objects.size}")
+        courses.forEach { obj -> Scoville.plugin.logger.debug("Course: ${obj.name}") }
+        super.open()
+    }
 
     override fun extraItems() {
         createRow(this, 3)

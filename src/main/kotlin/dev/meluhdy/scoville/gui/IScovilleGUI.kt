@@ -12,17 +12,27 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import kotlin.math.ceil
 
-private val defaultPanes = arrayOf(
-    Material.RED_STAINED_GLASS_PANE,
-    Material.ORANGE_STAINED_GLASS_PANE,
-    Material.YELLOW_STAINED_GLASS_PANE,
-    Material.LIME_STAINED_GLASS_PANE,
-    Material.GREEN_STAINED_GLASS_PANE
-)
-
 interface IScovilleGUI {
 
-    fun createRow(inv: MelodiaGUI, row: Int) = createRow(inv, row, defaultPanes)
+    companion object {
+        val scovillePanes = arrayOf(
+            Material.RED_STAINED_GLASS_PANE,
+            Material.ORANGE_STAINED_GLASS_PANE,
+            Material.YELLOW_STAINED_GLASS_PANE,
+            Material.LIME_STAINED_GLASS_PANE,
+            Material.GREEN_STAINED_GLASS_PANE
+        )
+
+        val ojPanes = arrayOf(
+            Material.BLUE_STAINED_GLASS_PANE,
+            Material.CYAN_STAINED_GLASS_PANE,
+            Material.LIGHT_BLUE_STAINED_GLASS_PANE,
+            Material.WHITE_STAINED_GLASS_PANE,
+            Material.YELLOW_STAINED_GLASS_PANE
+        )
+    }
+
+    fun createRow(inv: MelodiaGUI, row: Int) = createRow(inv, row, scovillePanes)
 
     fun createRow(inv: MelodiaGUI, row: Int, panes: Array<Material>) {
         if (row > inv.rows) throw IndexOutOfBoundsException("Tried to create row outside of inventory!")
@@ -33,7 +43,7 @@ interface IScovilleGUI {
         }
     }
 
-    fun createBorder(inv: MelodiaGUI) = createBorder(inv, defaultPanes)
+    fun createBorder(inv: MelodiaGUI) = createBorder(inv, scovillePanes)
 
     fun createBorder(inv: MelodiaGUI, panes: Array<Material>) {
         val lastRow = inv.rows - 1

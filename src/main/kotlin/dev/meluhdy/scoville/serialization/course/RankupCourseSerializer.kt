@@ -1,6 +1,7 @@
 package dev.meluhdy.scoville.serialization.course
 
 import dev.meluhdy.melodia.misc.serialization.SerializerElement
+import dev.meluhdy.scoville.core.course.AbstractCourse
 import dev.meluhdy.scoville.core.course.courses.RankupCourse
 import kotlinx.serialization.builtins.serializer
 import kotlin.reflect.KClass
@@ -11,7 +12,8 @@ class RankupCourseSerializer: AbstractCourseSerializer<RankupCourse>() {
 
         override val clazz: KClass<RankupCourse> = RankupCourse::class
 
-        lateinit var rank: RankupCourse.Rank
+        var rank: RankupCourse.Rank = RankupCourse.Rank.UNKNOWN
+        override var type: AbstractCourse.CourseType = AbstractCourse.CourseType.RANKUP
 
         override fun extraSteps(course: RankupCourse) {
             course.rank = rank

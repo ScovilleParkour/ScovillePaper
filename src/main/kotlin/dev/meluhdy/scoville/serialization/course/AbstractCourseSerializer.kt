@@ -44,13 +44,13 @@ abstract class AbstractCourseSerializer<T: AbstractCourse>: MelodiaSerializer<T>
         var authors: List<UUID> = listOf()
         var startLocation: Location? = null
         var baseStack: ItemStack? = null
-        var type: AbstractCourse.CourseType = AbstractCourse.CourseType.UNKNOWN
+        abstract var type: AbstractCourse.CourseType
         var timeCreated: Long = 0
 
         abstract val clazz: KClass<T>
 
         override fun build(): T {
-            val course = clazz.constructors.first().call(uuid, timeCreated)
+            val course = clazz.constructors.first().call(uuid ?: UUID.randomUUID(), timeCreated)
             course.name = name
             course.coloredName = coloredName
             course.authors = authors

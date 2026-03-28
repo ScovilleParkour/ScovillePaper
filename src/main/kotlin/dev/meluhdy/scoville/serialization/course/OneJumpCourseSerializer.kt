@@ -1,6 +1,7 @@
 package dev.meluhdy.scoville.serialization.course
 
 import dev.meluhdy.melodia.misc.serialization.SerializerElement
+import dev.meluhdy.scoville.core.course.AbstractCourse
 import dev.meluhdy.scoville.core.course.courses.OneJumpCourse
 import kotlinx.serialization.builtins.serializer
 import kotlin.reflect.KClass
@@ -11,7 +12,8 @@ class OneJumpCourseSerializer: AbstractCourseSerializer<OneJumpCourse>() {
 
         override val clazz: KClass<OneJumpCourse> = OneJumpCourse::class
 
-        lateinit var difficulty: OneJumpCourse.OJDifficulty
+        var difficulty: OneJumpCourse.OJDifficulty = OneJumpCourse.OJDifficulty.UNKNOWN
+        override var type: AbstractCourse.CourseType = AbstractCourse.CourseType.ONEJUMP
         var jumps: Int = 0
 
         override fun extraSteps(course: OneJumpCourse) {

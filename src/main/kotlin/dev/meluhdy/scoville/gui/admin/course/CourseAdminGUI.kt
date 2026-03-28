@@ -49,9 +49,7 @@ class CourseAdminGUI(p: Player, pg: MelodiaGUI?): MelodiaPaginationGUI<AbstractC
                 getTitle(p, TranslatedString("menu.admin.courses.new", arrayOf())) as TextComponent
                 )
         ) {
-            TextUtils.prompt(getTitle(p, TranslatedString("menu.admin.courses.create.prompt", arrayOf())) as TextComponent, p) {
-                CourseCreateGUI(it.content(), p, this@CourseAdminGUI).open()
-            }
+            CourseCreateTypeGUI(p, this).open()
         }
     )
 
