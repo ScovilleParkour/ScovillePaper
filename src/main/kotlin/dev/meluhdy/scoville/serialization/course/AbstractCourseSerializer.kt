@@ -50,7 +50,7 @@ abstract class AbstractCourseSerializer<T: AbstractCourse>: MelodiaSerializer<T>
         abstract val clazz: KClass<T>
 
         override fun build(): T {
-            val course = clazz.constructors.first().call(uuid ?: UUID.randomUUID(), timeCreated)
+            val course = clazz.constructors.first().call(uuid, timeCreated)
             course.name = name
             course.coloredName = coloredName
             course.authors = authors

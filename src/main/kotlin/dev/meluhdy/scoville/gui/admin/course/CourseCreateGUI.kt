@@ -55,7 +55,6 @@ abstract class CourseCreateGUI<T : AbstractCourseSerializer.AbstractCourseBuilde
                 MelodiaGUIItem(49, ItemUtils.createItem(Material.ANVIL, 1,
                     getTitle(p, TranslatedString("menu.admin.courses.create.confirm.title", arrayOf()))
                 )) {
-                    this.currBuilder.uuid = UUID.randomUUID()
                     val course = this.currBuilder.build()
                     CourseManager.add(course)
                     p.closeInventory()
