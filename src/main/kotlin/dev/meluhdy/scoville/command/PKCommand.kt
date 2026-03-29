@@ -8,10 +8,10 @@ import io.papermc.paper.command.brigadier.CommandSourceStack
 import net.kyori.adventure.text.Component
 
 @Suppress("UnstableApiUsage")
-class PKCommand: MelodiaCommand("pk") {
+object PKCommand: MelodiaCommand("pk") {
 
     override val children: ArrayList<MelodiaCommand> = arrayListOf(
-        MenuCommand()
+        MenuCommand
     )
 
     override fun onCommand(context: CommandContext<CommandSourceStack>): Int {

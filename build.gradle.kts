@@ -16,6 +16,9 @@ repositories {
     maven("https://oss.sonatype.org/content/groups/public/") {
         name = "sonatype"
     }
+    maven("https://repo.onarandombox.com/content/groups/public/") {
+        name = "onarandombox"
+    }
 }
 
 dependencies {

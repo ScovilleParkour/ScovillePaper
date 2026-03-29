@@ -12,6 +12,7 @@ import dev.meluhdy.scoville.core.course.AbstractCourse
 import dev.meluhdy.scoville.core.course.CourseManager
 import dev.meluhdy.scoville.core.course.courses.OneJumpCourse
 import dev.meluhdy.scoville.core.course.courses.UserCourse
+import dev.meluhdy.scoville.event.event.CourseJoinEvent
 import dev.meluhdy.scoville.gui.IScovilleGUI
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
@@ -32,7 +33,7 @@ class CourseListGUI(val courseType: AbstractCourse.CourseType, p: Player, pg: Me
         Material.ARROW, 1, getTitle(p,
             TranslatedString("menu.generic.next.title", arrayOf())
         ))
-    override val objects: ArrayList<AbstractCourse> = CourseManager.getAll().filter { course -> course.courseType == courseType }.toCollection(ArrayList())
+    override val objects: ArrayList<AbstractCourse> = CourseManager.getAll().filter { course -> course.courseType == courseType }.sortedBy { course -> course.timeCreated }.toCollection(ArrayList())
 
     fun getLore(obj: AbstractCourse): MutableList<Component> {
         val wlrBars = '▮'
@@ -117,7 +118,8 @@ class CourseListGUI(val courseType: AbstractCourse.CourseType, p: Player, pg: Me
                 *this.getLore(obj).toTypedArray()
             )
         ) {
-            it.whoClicked.sendMessage("Join ${obj.name}")
+            Scoville.plugin.logger.debug("Joining course ${obj.name} from GUI")
+            CourseJoinEvent(it.whoClicked as Player, obj).callEvent()
         }
     }
 

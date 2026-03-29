@@ -8,7 +8,7 @@ import net.kyori.adventure.text.Component.text
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
-object AchievementBroadcastListener: Listener {
+object BroadcastListener: Listener {
 
     @EventHandler
     fun on(e: GrantAchievementEvent) {

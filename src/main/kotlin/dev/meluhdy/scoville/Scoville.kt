@@ -7,11 +7,13 @@ import dev.meluhdy.melodia.utils.ConsoleLogger
 import dev.meluhdy.melodia.utils.LoggingUtils
 import dev.meluhdy.melodia.utils.TranslationFolder
 import dev.meluhdy.scoville.achievement.AchievementManager
+import dev.meluhdy.scoville.command.LobbyCommand
 import dev.meluhdy.scoville.command.PKCommand
 import dev.meluhdy.scoville.core.course.CourseManager
 import dev.meluhdy.scoville.core.parkourer.ParkourerManager
-import dev.meluhdy.scoville.event.listener.AchievementBroadcastListener
-import dev.meluhdy.scoville.event.listener.CreateParkourerListener
+import dev.meluhdy.scoville.event.listener.BroadcastListener
+import dev.meluhdy.scoville.event.listener.ParkourerPositionerListener
+import dev.meluhdy.scoville.event.listener.ParkourerUpdateListener
 import org.bukkit.event.Listener
 import java.util.Locale
 
@@ -22,7 +24,8 @@ class Scoville : MelodiaPlugin() {
     }
 
     override val melodiaCommands: Array<MelodiaCommand> = arrayOf(
-        PKCommand()
+        PKCommand,
+        LobbyCommand
     )
 
     override val resourceFiles: Array<String> = arrayOf(
@@ -33,8 +36,9 @@ class Scoville : MelodiaPlugin() {
     )
 
     override val listeners: Array<Listener> = arrayOf(
-        AchievementBroadcastListener,
-        CreateParkourerListener
+        BroadcastListener,
+        ParkourerUpdateListener,
+        ParkourerPositionerListener
     )
 
     override val translationFolder: TranslationFolder = TranslationFolder("lang", Locale.of("en"))
