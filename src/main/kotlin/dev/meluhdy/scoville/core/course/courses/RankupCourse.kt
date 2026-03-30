@@ -17,7 +17,9 @@ class RankupCourse(uuid: UUID = UUID.randomUUID(), timeCreated: Long = System.cu
         MANZANO         ('e', "Manzano"),
         CAYENNE         ('6', "Cayenne"),
         THAI            ('6', "Thai"),
-        DATIL           ('6', "Datil")
+        DATIL           ('6', "Datil");
+
+        companion object
     }
 
     override var authors: List<UUID> = mutableListOf<UUID>(UUID.fromString("1226cf17-80ff-402e-9559-d54384148a33"))

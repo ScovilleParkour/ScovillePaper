@@ -37,7 +37,7 @@ abstract class AbstractCourseSerializer<T: AbstractCourse>: MelodiaSerializer<T>
         }
     }
 
-    abstract class AbstractCourseBuilder<T: AbstractCourse>(): Builder<T>() {
+    abstract class AbstractCourseBuilder<T: AbstractCourse>: Builder<T>() {
 
         var name: String? = null
         var coloredName: String? = null

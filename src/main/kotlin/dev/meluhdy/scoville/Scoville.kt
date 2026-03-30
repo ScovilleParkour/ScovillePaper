@@ -54,6 +54,10 @@ class Scoville : MelodiaPlugin() {
         plugin = this
     }
 
+    fun ensureRankTrack() {
+        val group = luck
+    }
+
     override fun onEnable() {
 
         AchievementManager

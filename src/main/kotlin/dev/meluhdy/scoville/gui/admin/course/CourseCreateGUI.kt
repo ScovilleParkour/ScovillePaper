@@ -65,6 +65,7 @@ abstract class CourseCreateGUI<T : AbstractCourseSerializer.AbstractCourseBuilde
 
     override fun open() {
         this.currBuilder.name = courseName
+        this.currBuilder.startLocation = p.location
         this.title = getTitle(p, TranslatedString("menu.admin.courses.create.title", arrayOf(currBuilder.name ?: ""))) as TextComponent
         super.open()
     }
