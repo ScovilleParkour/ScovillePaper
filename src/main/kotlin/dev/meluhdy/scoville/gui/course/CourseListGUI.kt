@@ -17,6 +17,7 @@ import dev.meluhdy.scoville.gui.IScovilleGUI
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
 import org.apache.commons.lang3.StringUtils
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -119,7 +120,10 @@ class CourseListGUI(val courseType: AbstractCourse.CourseType, p: Player, pg: Me
             )
         ) {
             Scoville.plugin.logger.debug("Joining course ${obj.name} from GUI")
-            CourseJoinEvent(it.whoClicked as Player, obj).callEvent()
+            val player = it.whoClicked as Player
+            Bukkit.getAsyncScheduler().runNow(Scoville.plugin) {
+                CourseJoinEvent(player, obj).callEvent()
+            }
         }
     }
 

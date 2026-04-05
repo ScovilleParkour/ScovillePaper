@@ -6,12 +6,10 @@ import dev.meluhdy.melodia.manager.MelodiaSavingManager
 import dev.meluhdy.melodia.utils.ConsoleLogger
 import dev.meluhdy.melodia.utils.LoggingUtils
 import dev.meluhdy.melodia.utils.TranslationFolder
-import dev.meluhdy.scoville.achievement.AchievementManager
 import dev.meluhdy.scoville.command.LobbyCommand
 import dev.meluhdy.scoville.command.PKCommand
 import dev.meluhdy.scoville.core.course.CourseManager
 import dev.meluhdy.scoville.core.parkourer.ParkourerManager
-import dev.meluhdy.scoville.event.listener.BroadcastListener
 import dev.meluhdy.scoville.event.listener.ParkourerPositionerListener
 import dev.meluhdy.scoville.event.listener.ParkourerUpdateListener
 import org.bukkit.event.Listener
@@ -21,6 +19,10 @@ class Scoville : MelodiaPlugin() {
 
     companion object {
         lateinit var plugin: MelodiaPlugin
+    }
+
+    init {
+        plugin = this
     }
 
     override val melodiaCommands: Array<MelodiaCommand> = arrayOf(
@@ -36,7 +38,6 @@ class Scoville : MelodiaPlugin() {
     )
 
     override val listeners: Array<Listener> = arrayOf(
-        BroadcastListener,
         ParkourerUpdateListener,
         ParkourerPositionerListener
     )
@@ -49,21 +50,5 @@ class Scoville : MelodiaPlugin() {
         ParkourerManager,
         CourseManager
     )
-
-    override fun onLoad() {
-        plugin = this
-    }
-
-    fun ensureRankTrack() {
-        val group = luck
-    }
-
-    override fun onEnable() {
-
-        AchievementManager
-
-        super.onEnable()
-
-    }
 
 }

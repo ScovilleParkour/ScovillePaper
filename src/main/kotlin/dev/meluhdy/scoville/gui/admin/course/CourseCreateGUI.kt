@@ -8,6 +8,7 @@ import dev.meluhdy.melodia.utils.TranslatedString
 import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.core.course.AbstractCourse
 import dev.meluhdy.scoville.core.course.CourseManager
+import dev.meluhdy.scoville.gui.ConfirmationGUI
 import dev.meluhdy.scoville.gui.IScovilleGUI
 import dev.meluhdy.scoville.serialization.course.AbstractCourseSerializer
 import dev.meluhdy.scoville.serialization.course.OneJumpCourseSerializer
@@ -55,10 +56,12 @@ abstract class CourseCreateGUI<T : AbstractCourseSerializer.AbstractCourseBuilde
                 MelodiaGUIItem(49, ItemUtils.createItem(Material.ANVIL, 1,
                     getTitle(p, TranslatedString("menu.admin.courses.create.confirm.title", arrayOf()))
                 )) {
-                    val course = this.currBuilder.build()
-                    CourseManager.add(course)
-                    p.closeInventory()
-                    p.sendMessage(getTitle(this.p, TranslatedString("menu.admin.courses.create.created", arrayOf(this.currBuilder.coloredName ?: "(MISSING COLORED NAME)"))))
+                    ConfirmationGUI(p, this) {
+                        val course = this.currBuilder.build()
+                        CourseManager.add(course)
+                        p.closeInventory()
+                        p.sendMessage(getTitle(this.p, TranslatedString("menu.admin.courses.create.created", arrayOf(this.currBuilder.coloredName ?: "(MISSING COLORED NAME)"))))
+                    }.open()
                 }
             )
         }

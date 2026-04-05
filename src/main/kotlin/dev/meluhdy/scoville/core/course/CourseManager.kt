@@ -36,4 +36,8 @@ object CourseManager : MelodiaSavingManager<AbstractCourse>() {
     override fun deserializeObject(jsonElement: JsonElement): AbstractCourse = serializer.decodeFromJsonElement(
         AbstractCourseSerializer.getSerializer(jsonElement) as MelodiaSerializer<AbstractCourse>, jsonElement)
 
+    fun get(name: String): AbstractCourse? {
+        return this.get { course -> course.name == name }
+    }
+
 }

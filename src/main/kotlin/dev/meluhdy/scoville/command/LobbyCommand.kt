@@ -1,6 +1,7 @@
 package dev.meluhdy.scoville.command
 
 import com.mojang.brigadier.Command
+import com.mojang.brigadier.builder.RequiredArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.meluhdy.melodia.annotation.UserOnly
 import dev.meluhdy.melodia.command.MelodiaCommand
@@ -12,7 +13,8 @@ import org.bukkit.entity.Player
 @Suppress("UnstableApiUsage")
 object LobbyCommand : MelodiaCommand("l") {
 
-    override val children: ArrayList<MelodiaCommand> = arrayListOf()
+    override val children: List<MelodiaCommand> = listOf()
+    override val arguments: List<RequiredArgumentBuilder<CommandSourceStack, *>> = listOf()
 
     @UserOnly
     override fun onCommand(context: CommandContext<CommandSourceStack>): Int {

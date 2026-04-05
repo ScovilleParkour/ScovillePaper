@@ -16,13 +16,11 @@ object ParkourerSerializer: MelodiaSerializer<Parkourer>() {
     class ParkourerBuilder: Builder<Parkourer>() {
 
         var currentlyPlaying: UUID? = null
-        val achievements: MutableList<String> = mutableListOf()
         val courseCompletions: HashMap<UUID, Int> = HashMap()
 
         override fun build(): Parkourer {
             val out = Parkourer(uuid)
             out.currentlyPlaying = currentlyPlaying
-            achievements.forEach { out.grantAchievement(it) }
             return out
         }
 
@@ -32,7 +30,6 @@ object ParkourerSerializer: MelodiaSerializer<Parkourer>() {
 
     override val steps: Array<SerializerElement<*, Parkourer>> = arrayOf(
         SerializerElement("currentlyPlaying", String.serializer().nullable, { it.currentlyPlaying?.toString() }, { uuid, builder -> (builder as ParkourerBuilder).currentlyPlaying = uuid?.let { UUID.fromString(it) } }),
-        SerializerElement("achievements", ListSerializer(String.serializer()), { it.getAchievementList().map { achievement -> achievement.achievementId } }, { list, builder -> (builder as ParkourerBuilder).achievements.addAll(list) }),
         SerializerElement("courseCompletions", MapSerializer(UUIDSerializer(), Int.serializer()), { it.getAllCourseCompletions().mapKeys { key -> key.key.uuid } }, { map, builder -> (builder as ParkourerBuilder).courseCompletions.putAll(map) })
     )
 
