@@ -17,3 +17,6 @@ dependencies:
     LuckPerms:
       load: BEFORE
       required: true
+    Multiverse-Core:
+      load: BEFORE
+      required: true

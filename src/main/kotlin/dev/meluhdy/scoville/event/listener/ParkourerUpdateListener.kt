@@ -1,5 +1,6 @@
 package dev.meluhdy.scoville.event.listener
 
+import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.core.parkourer.Parkourer
 import dev.meluhdy.scoville.core.parkourer.ParkourerManager
 import dev.meluhdy.scoville.core.plate.Plate
@@ -8,6 +9,7 @@ import dev.meluhdy.scoville.event.event.CourseCompleteEvent
 import dev.meluhdy.scoville.event.event.CourseJoinEvent
 import dev.meluhdy.scoville.event.event.CourseLeaveEvent
 import dev.meluhdy.scoville.event.event.PlateEvent
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Tag
 import org.bukkit.block.BlockFace
@@ -46,15 +48,25 @@ object ParkourerUpdateListener: Listener {
         val block = e.clickedBlock ?: return
         if (!Tag.PRESSURE_PLATES.isTagged(block.type)) return
 
+        Scoville.plugin.logger.debug("Plate hit at ${block.location}")
+        PlateManager.getAll().forEach { plate -> Scoville.plugin.logger.debug("Plate: ${plate.location} | ${plate.location == block.location}") }
+
         val plate = PlateManager.get { it.location == block.location } ?: return
 
         val blockBelow = block.getRelative(BlockFace.DOWN)
+        Scoville.plugin.logger.debug("Bottom Block: ${blockBelow.type}")
         when (blockBelow.type) {
-            Material.RED_CONCRETE -> {
-                PlateEvent(e.player, plate, Plate.PlateType.BEGIN).callEvent()
+            Material.LIME_CONCRETE -> {
+                Bukkit.getAsyncScheduler().runNow(Scoville.plugin) {
+                    Scoville.plugin.logger.debug("Begun Course")
+                    PlateEvent(e.player, plate, Plate.PlateType.BEGIN).callEvent()
+                }
             }
-            Material.GREEN_CONCRETE -> {
-                PlateEvent(e.player, plate, Plate.PlateType.END).callEvent()
+            Material.RED_CONCRETE -> {
+                Bukkit.getAsyncScheduler().runNow(Scoville.plugin) {
+                    Scoville.plugin.logger.debug("Ended Course")
+                    PlateEvent(e.player, plate, Plate.PlateType.END).callEvent()
+                }
             }
             else -> return
         }
@@ -65,6 +77,7 @@ object ParkourerUpdateListener: Listener {
         if (e.plateType != Plate.PlateType.END) return
 
         val course = e.plate.getCourse() ?: return
+        Scoville.plugin.logger.debug("${e.player.name} stepped on the end plate of ${course.name} at ${e.plate.location}")
         // TODO: Handle leaderboard time
         CourseCompleteEvent(e.player, course).callEvent()
         CourseLeaveEvent(e.player, course).callEvent()

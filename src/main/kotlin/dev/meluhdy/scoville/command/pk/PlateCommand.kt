@@ -26,6 +26,7 @@ object PlateCommand : MelodiaCommand("plate") {
     @UserOnly
     override fun onCommand(context: CommandContext<CommandSourceStack>): Int {
         val plateBlock = (context.source.sender as Player).getTargetBlock(setOf(), 5)
+        println(plateBlock.type)
         if (!Tag.PRESSURE_PLATES.isTagged(plateBlock.type)) {
             context.source.sender.sendMessage("You need to be looking at a plate!")
             return Command.SINGLE_SUCCESS

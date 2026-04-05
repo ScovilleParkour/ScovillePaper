@@ -1,7 +1,7 @@
 plugins {
-    kotlin("jvm") version "2.2.0-Beta1"
-    id("com.gradleup.shadow") version "8.3.0"
-    id("xyz.jpenilla.run-paper") version "2.3.1"
+    kotlin("jvm") version "2.4.0-Beta1"
+    id("com.gradleup.shadow") version "9.4.1"
+    id("xyz.jpenilla.run-paper") version "3.0.2"
     kotlin("plugin.serialization") version "2.1.20"
 }
 
@@ -36,7 +36,7 @@ tasks {
     }
 }
 
-val targetJavaVersion = 21
+val targetJavaVersion = 25
 kotlin {
     jvmToolchain(targetJavaVersion)
 }

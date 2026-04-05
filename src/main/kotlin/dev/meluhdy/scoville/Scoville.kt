@@ -10,6 +10,8 @@ import dev.meluhdy.scoville.command.LobbyCommand
 import dev.meluhdy.scoville.command.PKCommand
 import dev.meluhdy.scoville.core.course.CourseManager
 import dev.meluhdy.scoville.core.parkourer.ParkourerManager
+import dev.meluhdy.scoville.core.plate.PlateManager
+import dev.meluhdy.scoville.event.listener.BroadcastListener
 import dev.meluhdy.scoville.event.listener.ParkourerPositionerListener
 import dev.meluhdy.scoville.event.listener.ParkourerUpdateListener
 import org.bukkit.event.Listener
@@ -39,7 +41,8 @@ class Scoville : MelodiaPlugin() {
 
     override val listeners: Array<Listener> = arrayOf(
         ParkourerUpdateListener,
-        ParkourerPositionerListener
+        ParkourerPositionerListener,
+        BroadcastListener
     )
 
     override val translationFolder: TranslationFolder = TranslationFolder("lang", Locale.of("en"))
@@ -48,7 +51,8 @@ class Scoville : MelodiaPlugin() {
 
     override val savingManagers: Array<MelodiaSavingManager<*>> = arrayOf(
         ParkourerManager,
-        CourseManager
+        CourseManager,
+        PlateManager
     )
 
 }
