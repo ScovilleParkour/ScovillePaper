@@ -3,6 +3,8 @@ package dev.meluhdy.scoville.core.parkourer
 import dev.meluhdy.melodia.manager.MelodiaItem
 import dev.meluhdy.scoville.core.course.AbstractCourse
 import dev.meluhdy.scoville.core.course.CourseManager
+import dev.meluhdy.scoville.core.course.courses.RankupCourse
+import dev.meluhdy.scoville.misc.PermissionUtils
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
@@ -14,6 +16,9 @@ class Parkourer(uuid: UUID): MelodiaItem(uuid) {
 
     var currentlyPlaying: UUID? = null
     private val courseCompletionCount: HashMap<UUID, Int> = hashMapOf()
+    var rank: RankupCourse.Rank
+        get() = PermissionUtils.getRank(this)
+        set(r) = PermissionUtils.setRank(this, r)
 
     fun getPlayer(): Player? = Bukkit.getPlayer(this.uuid)
     fun getOfflinePlayer(): OfflinePlayer = Bukkit.getOfflinePlayer(this.uuid)

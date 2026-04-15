@@ -7,6 +7,7 @@ import dev.meluhdy.scoville.misc.PermissionUtils.ensureGroup
 import net.luckperms.api.LuckPermsProvider
 import net.luckperms.api.model.group.Group
 import net.luckperms.api.model.user.User
+import net.luckperms.api.node.types.InheritanceNode
 import net.luckperms.api.track.Track
 import org.bukkit.entity.Player
 import java.util.stream.Collectors
@@ -43,11 +44,9 @@ object PermissionUtils {
 
         RankupCourse.Rank.entries.forEach {
             if (it == RankupCourse.Rank.UNKNOWN) return@forEach
-            val group = this.ensureGroup(it.name.lowercase())
-            if (track.containsGroup(group)) return@forEach
-            track.appendGroup(group)
+            val group = it.asGroup()
+            if (!track.containsGroup(group)) track.appendGroup(group)
         }
-
         return track
     }
 
@@ -57,6 +56,20 @@ object PermissionUtils {
         val currGroup = ensureGroup(track.getCurrentGroup(user) ?: return RankupCourse.Rank.UNKNOWN)
 
         return RankupCourse.Rank.fromGroup(currGroup) ?: RankupCourse.Rank.UNKNOWN
+    }
+
+    fun setRank(p: Parkourer, rank: RankupCourse.Rank) {
+        val track = this.ensureRankTrack()
+        val user = luckPerms.userManager.getUser(p.uuid) ?: return
+
+        val currGroup = track.getCurrentGroup(user)
+        val newGroup = rank.asGroup()
+
+        luckPerms.userManager.modifyUser(p.uuid) { user ->
+            if (currGroup != null)
+                user.data().remove(InheritanceNode.builder(currGroup).build())
+            user.data().add(InheritanceNode.builder(newGroup).build())
+        }
     }
 
 }

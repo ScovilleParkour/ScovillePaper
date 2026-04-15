@@ -11,11 +11,11 @@ import dev.meluhdy.scoville.core.plate.Plate
 import dev.meluhdy.scoville.core.plate.PlateManager
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
+import org.bukkit.Material
 import org.bukkit.Tag
 import org.bukkit.entity.Player
 import java.util.UUID
 
-@Suppress("UnstableApiUsage")
 object PlateCommand : MelodiaCommand("plate") {
 
     override val children: List<MelodiaCommand> = listOf()
@@ -25,8 +25,7 @@ object PlateCommand : MelodiaCommand("plate") {
 
     @UserOnly
     override fun onCommand(context: CommandContext<CommandSourceStack>): Int {
-        val plateBlock = (context.source.sender as Player).getTargetBlock(setOf(), 5)
-        println(plateBlock.type)
+        val plateBlock = (context.source.sender as Player).getTargetBlock(null, 5)
         if (!Tag.PRESSURE_PLATES.isTagged(plateBlock.type)) {
             context.source.sender.sendMessage("You need to be looking at a plate!")
             return Command.SINGLE_SUCCESS
