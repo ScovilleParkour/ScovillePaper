@@ -15,7 +15,7 @@ class Parkourer(uuid: UUID): MelodiaItem(uuid) {
     constructor(player: Player) : this(player.uniqueId)
 
     var currentlyPlaying: UUID? = null
-    private val courseCompletionCount: HashMap<UUID, Int> = hashMapOf()
+    internal val courseCompletionCount: HashMap<UUID, Int> = hashMapOf()
     var rank: RankupCourse.Rank
         get() = PermissionUtils.getRank(this)
         set(r) = PermissionUtils.setRank(this, r)

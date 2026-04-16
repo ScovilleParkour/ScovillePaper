@@ -44,6 +44,13 @@ object ParkourerUpdateListener: Listener {
     }
 
     @EventHandler
+    fun onCourseComplete(e: CourseCompleteEvent) {
+        val player = e.player
+        val parkourer = ParkourerManager.getOrCreate(player) { Parkourer(player) }
+        parkourer.incrementCourseCompletions(e.course)
+    }
+
+    @EventHandler
     fun onPlate(e: PlayerInteractEvent) {
         val block = e.clickedBlock ?: return
         if (!Tag.PRESSURE_PLATES.isTagged(block.type)) return

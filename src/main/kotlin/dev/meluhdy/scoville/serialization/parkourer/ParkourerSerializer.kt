@@ -21,6 +21,7 @@ object ParkourerSerializer: MelodiaSerializer<Parkourer>() {
         override fun build(): Parkourer {
             val out = Parkourer(uuid)
             out.currentlyPlaying = currentlyPlaying
+            out.courseCompletionCount.putAll(courseCompletions)
             return out
         }
 
@@ -30,7 +31,7 @@ object ParkourerSerializer: MelodiaSerializer<Parkourer>() {
 
     override val steps: Array<SerializerElement<*, Parkourer>> = arrayOf(
         SerializerElement("currentlyPlaying", String.serializer().nullable, { it.currentlyPlaying?.toString() }, { uuid, builder -> (builder as ParkourerBuilder).currentlyPlaying = uuid?.let { UUID.fromString(it) } }),
-        SerializerElement("courseCompletions", MapSerializer(UUIDSerializer(), Int.serializer()), { it.getAllCourseCompletions().mapKeys { key -> key.key.uuid } }, { map, builder -> (builder as ParkourerBuilder).courseCompletions.putAll(map) })
+        SerializerElement("courseCompletions", MapSerializer(UUIDSerializer(), Int.serializer()), { it.courseCompletionCount }, { map, builder -> (builder as ParkourerBuilder).courseCompletions.putAll(map) })
     )
 
 }
