@@ -1,5 +1,6 @@
 package dev.meluhdy.scoville.misc
 
+import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.core.course.courses.RankupCourse
 import dev.meluhdy.scoville.core.parkourer.Parkourer
 import dev.meluhdy.scoville.misc.PermissionUtils.RANK_PREFIX
@@ -19,6 +20,8 @@ fun Track.getCurrentGroup(user: User): String? {
 }
 
 object PermissionUtils {
+
+    private var ensuredRanks = false
 
     private const val RANK_PREFIX = "group.rank."
 
@@ -42,10 +45,14 @@ object PermissionUtils {
     private fun ensureRankTrack(): Track {
         val track = this.ensureTrack("track.rank")
 
-        RankupCourse.Rank.entries.forEach {
-            if (it == RankupCourse.Rank.UNKNOWN) return@forEach
-            val group = it.asGroup()
-            if (!track.containsGroup(group)) track.appendGroup(group)
+        if (!ensuredRanks) {
+            track.clearGroups()
+            RankupCourse.Rank.entries
+                .filter { it != RankupCourse.Rank.UNKNOWN }
+                .sortedBy { it.ordinal }
+                .map { it.asGroup() }
+                .forEach { track.appendGroup(it) }
+            luckPerms.trackManager.saveTrack(track)
         }
         return track
     }
