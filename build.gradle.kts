@@ -3,12 +3,14 @@ plugins {
     id("com.gradleup.shadow") version "9.4.1"
     id("xyz.jpenilla.run-paper") version "3.0.2"
     kotlin("plugin.serialization") version "2.1.20"
+    `maven-publish`
 }
 
 group = "dev.meluhdy"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/") {
         name = "papermc-repo"
@@ -23,7 +25,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
-    compileOnly(files(project.findProperty("melodiaPath") as String))
+    compileOnly("dev.meluhdy:melodia:1.0-SNAPSHOT")
     compileOnly("net.luckperms:api:5.4")
 }
 
@@ -43,10 +45,11 @@ kotlin {
 
 tasks.build {
     dependsOn("shadowJar")
+    finalizedBy(tasks.publishToMavenLocal)
 }
 
 tasks.processResources {
-    val props = mapOf("version" to version)
+    val props = mapOf("version" to version, "description" to description)
     inputs.properties(props)
     filteringCharset = "UTF-8"
     filesMatching("paper-plugin.yml") {
@@ -58,5 +61,17 @@ tasks.shadowJar {
     dependencies {
         exclude(dependency("org.jetbrains.kotlin:.*"))
         exclude(dependency("org.jetbrains.kotlinx:kotlinx-serialization-core"))
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = project.group.toString()
+            artifactId = "scoville"
+            version = project.version.toString()
+
+            from(components["shadow"])
+        }
     }
 }

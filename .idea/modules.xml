@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Melodia.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Melodia.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Scoville.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Scoville.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScovilleAchievements.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ScovilleAchievements.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScovilleCommands.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ScovilleCommands.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScovilleUI.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ScovilleUI.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dev.meluhdy.Scoville.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dev.meluhdy.Scoville.main.iml" />
     </modules>
   </component>

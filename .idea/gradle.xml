@@ -4,10 +4,42 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../../Melodia" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../../Melodia" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../ScovilleAchievements" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../ScovilleAchievements" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../ScovilleCommands" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../ScovilleCommands" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../ScovilleUI" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../ScovilleUI" />
           </set>
         </option>
       </GradleProjectSettings>
