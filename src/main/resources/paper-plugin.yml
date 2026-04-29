@@ -1,4 +1,4 @@
-name: Scoville
+name: ScovilleCore
 version: '$version'
 main: dev.meluhdy.scoville.Scoville
 description: '$description'

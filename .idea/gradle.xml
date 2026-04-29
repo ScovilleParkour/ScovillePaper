@@ -12,6 +12,16 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../Capsaicin" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../Capsaicin" />
+            <option value="$PROJECT_DIR$/../Capsaicin/capsaicin-api" />
+            <option value="$PROJECT_DIR$/../Capsaicin/capsaicin-server" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
@@ -24,6 +34,14 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/../ScovilleAchievements" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../ScovilleChat" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../ScovilleChat" />
           </set>
         </option>
       </GradleProjectSettings>

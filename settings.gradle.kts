@@ -1,2 +1,9 @@
-rootProject.name = "Scoville"
+pluginManagement {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
 
+rootProject.name = "ScovilleCore"

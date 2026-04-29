@@ -2,5 +2,14 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../Melodia" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../Capsaicin/capsaicin-server/src/minecraft/java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../Capsaicin/capsaicin-server/src/minecraft/resources" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../Capsaicin/paper-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../Capsaicin/paper-server" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../ScovilleAchievements" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../ScovilleChat" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../ScovilleCommands" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../ScovilleUI" vcs="Git" />
   </component>
 </project>

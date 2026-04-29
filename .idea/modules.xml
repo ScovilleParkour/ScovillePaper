@@ -5,8 +5,15 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Melodia.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Melodia.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Scoville.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Scoville.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScovilleAchievements.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ScovilleAchievements.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScovilleChat.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ScovilleChat.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScovilleCommands.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ScovilleCommands.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScovilleUI.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ScovilleUI.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/capsaicin.iml" filepath="$PROJECT_DIR$/.idea/modules/capsaicin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/capsaicin-api/capsaicin.capsaicin-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/capsaicin-api/capsaicin.capsaicin-api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/capsaicin-api/capsaicin.capsaicin-api.test.iml" filepath="$PROJECT_DIR$/.idea/modules/capsaicin-api/capsaicin.capsaicin-api.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/capsaicin-server/capsaicin.capsaicin-server.log4jPlugins.iml" filepath="$PROJECT_DIR$/.idea/modules/capsaicin-server/capsaicin.capsaicin-server.log4jPlugins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/capsaicin-server/capsaicin.capsaicin-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/capsaicin-server/capsaicin.capsaicin-server.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/capsaicin-server/capsaicin.capsaicin-server.test.iml" filepath="$PROJECT_DIR$/.idea/modules/capsaicin-server/capsaicin.capsaicin-server.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dev.meluhdy.Scoville.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dev.meluhdy.Scoville.main.iml" />
     </modules>
   </component>
