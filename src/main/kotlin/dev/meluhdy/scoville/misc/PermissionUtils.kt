@@ -1,17 +1,12 @@
 package dev.meluhdy.scoville.misc
 
-import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.core.course.courses.RankupCourse
-import dev.meluhdy.scoville.core.parkourer.Parkourer
-import dev.meluhdy.scoville.misc.PermissionUtils.RANK_PREFIX
-import dev.meluhdy.scoville.misc.PermissionUtils.ensureGroup
 import net.luckperms.api.LuckPermsProvider
 import net.luckperms.api.model.group.Group
 import net.luckperms.api.model.user.User
 import net.luckperms.api.node.types.InheritanceNode
 import net.luckperms.api.track.Track
 import org.bukkit.entity.Player
-import java.util.stream.Collectors
 
 fun Track.getCurrentGroup(user: User): String? {
     return user.getInheritedGroups(user.queryOptions)
@@ -19,64 +14,78 @@ fun Track.getCurrentGroup(user: User): String? {
         .maxByOrNull { this.groups.indexOf(it) }
 }
 
-object PermissionUtils {
+abstract class Tracked<T: Enum<*>> {
 
-    private var ensuredRanks = false
+    companion object {
+        val luckPerms = LuckPermsProvider.get()
 
-    private const val RANK_PREFIX = "group.rank."
-
-    private val luckPerms = LuckPermsProvider.get()
-
-    private fun ensureGroup(group: String): Group = luckPerms.groupManager.getGroup(group) ?: luckPerms.groupManager.createAndLoadGroup(group).get()
-
-    private fun ensureTrack(track: String): Track = luckPerms.trackManager.getTrack(track) ?: luckPerms.trackManager.createAndLoadTrack(track).get()
-
-    fun RankupCourse.Rank.asGroup() : Group {
-        return ensureGroup(RANK_PREFIX + this.name.lowercase())
+        protected fun ensureGroup(group: String): Group = luckPerms.groupManager.getGroup(group) ?: luckPerms.groupManager.createAndLoadGroup(group).get()
+        protected fun ensureTrack(track: String): Track = luckPerms.trackManager.getTrack(track) ?: luckPerms.trackManager.createAndLoadTrack(track).get()
     }
 
-    fun RankupCourse.Rank.Companion.fromGroup(group: Group) : RankupCourse.Rank? {
+    abstract val prefix: String
+    abstract val trackName: String
+    protected abstract val default: T
+
+    private var ensured: Boolean = false
+
+    abstract fun getEntries(): List<T>
+
+    protected abstract fun toGroupRoot(obj: T): String
+    protected abstract fun fromGroupRoot(str: String): T?
+
+    fun asGroup(obj: T): Group = ensureGroup("${prefix.removeSuffix(".")}." + toGroupRoot(obj))
+
+    fun fromGroup(group: Group): T? {
         val name = group.name
-        if (!name.startsWith(RANK_PREFIX)) return null
+        if (!name.startsWith(prefix)) return null
 
-        return RankupCourse.Rank.entries.find { it.name == name.removePrefix(RANK_PREFIX).uppercase() }
+        return fromGroupRoot(name.removePrefix("${prefix.removeSuffix(".")}."))
     }
 
-    private fun ensureRankTrack(): Track {
-        val track = this.ensureTrack("track.rank")
+    private fun ensureTTrack(): Track {
+        val track = Tracked.ensureTrack(trackName)
 
-        if (!ensuredRanks) {
+        if (!ensured) {
             track.clearGroups()
-            RankupCourse.Rank.entries
-                .filter { it != RankupCourse.Rank.UNKNOWN }
+
+            getEntries()
                 .sortedBy { it.ordinal }
-                .map { it.asGroup() }
+                .map { asGroup(it) }
                 .forEach { track.appendGroup(it) }
             luckPerms.trackManager.saveTrack(track)
+            ensured = true
         }
         return track
     }
 
-    fun getRank(p: Parkourer): RankupCourse.Rank {
-        val track = this.ensureRankTrack()
-        val user = luckPerms.userManager.getUser(p.uuid) ?: return RankupCourse.Rank.UNKNOWN
-        val currGroup = ensureGroup(track.getCurrentGroup(user) ?: return RankupCourse.Rank.UNKNOWN)
+    fun fromPlayer(p: Player): T {
+        val track = this.ensureTTrack()
+        val user = luckPerms.userManager.getUser(p.uniqueId) ?: return default
+        val currGroup: Group
+        val curr = track.getCurrentGroup(user)
+        if (curr == null || curr == "default") {
+            currGroup = asGroup(default)
+            setGroup(p, default)
+        } else {
+            currGroup = ensureGroup(curr)
+        }
 
-        return RankupCourse.Rank.fromGroup(currGroup) ?: RankupCourse.Rank.UNKNOWN
+        return fromGroup(currGroup) ?: default
     }
 
-    fun setRank(p: Parkourer, rank: RankupCourse.Rank) {
-        val track = this.ensureRankTrack()
-        val user = luckPerms.userManager.getUser(p.uuid) ?: return
+    fun setGroup(p: Player, obj: T) {
+        val track = this.ensureTTrack()
+        val user = luckPerms.userManager.getUser(p.uniqueId) ?: return
 
         val currGroup = track.getCurrentGroup(user)
-        val newGroup = rank.asGroup()
+        val newGroup = asGroup(obj)
 
-        luckPerms.userManager.modifyUser(p.uuid) { user ->
-            if (currGroup != null)
-                user.data().remove(InheritanceNode.builder(currGroup).build())
-            user.data().add(InheritanceNode.builder(newGroup).build())
-        }
+        if (currGroup != null && currGroup != "default")
+            user.data().remove(InheritanceNode.builder(currGroup).build())
+        user.data().add(InheritanceNode.builder(newGroup).build())
+
+        luckPerms.userManager.saveUser(user)
     }
 
 }
