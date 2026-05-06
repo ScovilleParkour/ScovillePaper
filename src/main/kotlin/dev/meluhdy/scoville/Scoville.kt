@@ -6,8 +6,6 @@ import dev.meluhdy.melodia.manager.MelodiaSavingManager
 import dev.meluhdy.melodia.utils.ConsoleLogger
 import dev.meluhdy.melodia.utils.LoggingUtils
 import dev.meluhdy.melodia.utils.TranslationFolder
-import dev.meluhdy.scoville.command.LobbyCommand
-import dev.meluhdy.scoville.command.PKCommand
 import dev.meluhdy.scoville.core.course.CourseManager
 import dev.meluhdy.scoville.core.parkourer.ParkourerManager
 import dev.meluhdy.scoville.core.plate.PlateManager
@@ -27,10 +25,7 @@ class Scoville : MelodiaPlugin() {
         plugin = this
     }
 
-    override val melodiaCommands: Array<MelodiaCommand> = arrayOf(
-        PKCommand,
-        LobbyCommand
-    )
+    override val melodiaCommands: Array<MelodiaCommand> = arrayOf()
 
     override val resourceFiles: Array<String> = arrayOf(
         "lang/en.properties",
