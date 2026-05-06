@@ -7,6 +7,8 @@ import net.luckperms.api.model.user.User
 import net.luckperms.api.node.types.InheritanceNode
 import net.luckperms.api.track.Track
 import org.bukkit.entity.Player
+import java.util.UUID
+import kotlin.uuid.Uuid
 
 fun Track.getCurrentGroup(user: User): String? {
     return user.getInheritedGroups(user.queryOptions)
@@ -59,14 +61,14 @@ abstract class Tracked<T: Enum<*>> {
         return track
     }
 
-    fun fromPlayer(p: Player): T {
+    fun fromPlayer(uuid: UUID): T {
         val track = this.ensureTTrack()
-        val user = luckPerms.userManager.getUser(p.uniqueId) ?: return default
+        val user = luckPerms.userManager.getUser(uuid) ?: return default
         val currGroup: Group
         val curr = track.getCurrentGroup(user)
         if (curr == null || curr == "default") {
             currGroup = asGroup(default)
-            setGroup(p, default)
+            setGroup(uuid, default)
         } else {
             currGroup = ensureGroup(curr)
         }
@@ -74,9 +76,13 @@ abstract class Tracked<T: Enum<*>> {
         return fromGroup(currGroup) ?: default
     }
 
-    fun setGroup(p: Player, obj: T) {
+    fun fromPlayer(p: Player): T = fromPlayer(p.uniqueId)
+
+    fun setGroup(p: Player, obj: T) = setGroup(p.uniqueId, obj)
+
+    fun setGroup(uuid: UUID, obj: T) {
         val track = this.ensureTTrack()
-        val user = luckPerms.userManager.getUser(p.uniqueId) ?: return
+        val user = luckPerms.userManager.getUser(uuid) ?: return
 
         val currGroup = track.getCurrentGroup(user)
         val newGroup = asGroup(obj)
@@ -86,6 +92,35 @@ abstract class Tracked<T: Enum<*>> {
         user.data().add(InheritanceNode.builder(newGroup).build())
 
         luckPerms.userManager.saveUser(user)
+    }
+
+    fun getPlayers(): HashMap<String, ArrayList<UUID>> {
+
+        val track = ensureTrack(trackName)
+        val groupMap = HashMap<String, Group>()
+
+        val out = hashMapOf<Group, ArrayList<UUID>>()
+
+        luckPerms.userManager.uniqueUsers.get().forEach { uuid ->
+
+            val user = luckPerms.userManager.getUser(uuid) ?: return@forEach
+
+            for (groupName in track.groups) {
+                val group = groupMap.getOrPut(groupName) { ensureGroup(groupName) }
+
+                if (user.getInheritedGroups(user.queryOptions).contains(group)) {
+                    val users = out.getOrPut(group) { ArrayList() }
+                    users.add(uuid)
+                    break
+                }
+            }
+
+        }
+
+
+
+        return out.mapKeys { it.key.name } as HashMap<String, ArrayList<UUID>>
+
     }
 
 }
