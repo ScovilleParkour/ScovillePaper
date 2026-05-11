@@ -28,8 +28,8 @@ object PlateSerializer: MelodiaSerializer<Plate>() {
     override val builder: Builder<Plate> = ParkourerBuilder()
 
     override val steps: Array<SerializerElement<*, Plate>> = arrayOf(
-        SerializerElement("course", UUIDSerializer().nullable, { it.getCourse()?.uuid }, { value, obj -> (obj as ParkourerBuilder).course = value }),
-        SerializerElement("location", LocationSerializer().nullable, { it.location }, { value, obj -> (obj as ParkourerBuilder).location = value })
+        SerializerElement("course", UUIDSerializer.nullable, { it.getCourse()?.uuid }, { value, obj -> (obj as ParkourerBuilder).course = value }),
+        SerializerElement("location", LocationSerializer.nullable, { it.location }, { value, obj -> (obj as ParkourerBuilder).location = value })
     )
 
 }

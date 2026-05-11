@@ -1,13 +1,17 @@
 package dev.meluhdy.scoville.core.parkourer
 
 import dev.meluhdy.melodia.manager.MelodiaItem
+import dev.meluhdy.melodia.utils.TextUtils
+import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.core.course.AbstractCourse
 import dev.meluhdy.scoville.core.course.CourseManager
 import dev.meluhdy.scoville.core.course.courses.RankupCourse
 import dev.meluhdy.scoville.misc.track.RankTrack
 import org.bukkit.Bukkit
+import org.bukkit.Location
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
+import org.bukkit.potion.PotionEffectType
 import java.util.UUID
 
 class Parkourer(uuid: UUID): MelodiaItem(uuid) {
@@ -19,6 +23,7 @@ class Parkourer(uuid: UUID): MelodiaItem(uuid) {
     var rank: RankupCourse.Rank
         get() = RankTrack.fromPlayer(this.getPlayer()!!)
         set(r) = RankTrack.setGroup(this.getPlayer()!!, r)
+    val checkpoints: HashMap<UUID, Location> = hashMapOf()
 
     fun getPlayer(): Player? = Bukkit.getPlayer(this.uuid)
     fun getOfflinePlayer(): OfflinePlayer = Bukkit.getOfflinePlayer(this.uuid)
@@ -38,6 +43,31 @@ class Parkourer(uuid: UUID): MelodiaItem(uuid) {
         return HashMap(courseCompletionCount
             .filter { entry -> CourseManager.exists(entry.key) }
             .mapKeys { entry -> CourseManager.get(entry.key)!! })
+    }
+
+    fun getPlayingCourse(): AbstractCourse? = currentlyPlaying?.let { CourseManager.get(it) }
+    fun setPlayingCourse(course: AbstractCourse) {
+        currentlyPlaying = course.uuid
+    }
+
+    fun setCheckpoint(course: AbstractCourse, location: Location) {
+        this.checkpoints[course.uuid] = location
+    }
+    fun getCheckpoint(course: AbstractCourse): Location? = this.getCheckpoint(course.uuid)
+    fun getCheckpoint(uuid: UUID): Location? = this.checkpoints[uuid]
+
+    fun gotoCheckpoint(course: AbstractCourse) = this.gotoCheckpoint(course.uuid)
+    fun gotoCheckpoint(uuid: UUID) {
+        val p = this.getPlayer() ?: return
+        val checkpoint = this.getCheckpoint(uuid)
+        if (checkpoint == null) {
+            p.sendMessage(TextUtils.translate(Scoville.plugin, "chat.checkpoint.no_cp", p.locale()))
+            return
+        }
+        for (effect in p.activePotionEffects) {
+            if (effect.type != PotionEffectType.NIGHT_VISION) p.removePotionEffect(effect.type)
+        }
+        p.teleport(checkpoint)
     }
 
 }
