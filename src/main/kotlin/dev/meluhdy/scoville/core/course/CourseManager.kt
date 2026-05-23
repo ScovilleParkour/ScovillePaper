@@ -2,6 +2,7 @@ package dev.meluhdy.scoville.core.course
 
 import dev.meluhdy.melodia.manager.MelodiaSavingManager
 import dev.meluhdy.melodia.misc.serialization.MelodiaSerializer
+import dev.meluhdy.melodia.utils.FileUtils
 import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.core.course.courses.OneJumpCourse
 import dev.meluhdy.scoville.core.course.courses.RankupCourse
@@ -12,8 +13,8 @@ import java.io.File
 
 object CourseManager : MelodiaSavingManager<AbstractCourse>() {
 
-    val baseFolder
-        get() = "${Scoville.plugin.dataFolder.path}${File.separator}courses"
+    val baseFolder: String
+        get() = FileUtils.getFile(Scoville.plugin, "courses").absolutePath
 
     override fun getFile(obj: AbstractCourse): File = when (obj) {
         is OneJumpCourse -> File("$baseFolder${File.separator}oj", "${obj.uuid}.json")

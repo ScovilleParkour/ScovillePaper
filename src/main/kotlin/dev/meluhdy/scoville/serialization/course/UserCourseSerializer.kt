@@ -25,6 +25,6 @@ class UserCourseSerializer: AbstractCourseSerializer<UserCourse>() {
         SerializerElement("difficulty", Int.serializer(), { it.difficulty.ordinal }, { diff, builder -> (builder as UserCourseBuilder).difficulty = UserCourse.Difficulty.entries[diff] })
     )
 
-    override val builder: Builder<UserCourse> = UserCourseBuilder()
+    override fun getBuilder(): Builder<UserCourse> = UserCourseBuilder()
 
 }

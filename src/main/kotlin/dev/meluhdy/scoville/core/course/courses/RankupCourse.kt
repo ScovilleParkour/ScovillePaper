@@ -20,6 +20,7 @@ class RankupCourse(uuid: UUID = UUID.randomUUID(), timeCreated: Long = System.cu
         DATIL           ('6', "Datil");
     }
 
+    // Set the author to Scoville
     override var authors: List<UUID> = mutableListOf<UUID>(UUID.fromString("1226cf17-80ff-402e-9559-d54384148a33"))
     var rank: Rank = Rank.UNKNOWN
     override var courseType = CourseType.RANKUP

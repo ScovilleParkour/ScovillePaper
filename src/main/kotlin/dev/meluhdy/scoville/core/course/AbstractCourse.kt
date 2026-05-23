@@ -21,4 +21,8 @@ abstract class AbstractCourse(uuid: UUID = UUID.randomUUID(), val timeCreated: L
     open var baseStack: ItemStack? = null
     open var courseType: CourseType = CourseType.UNKNOWN
 
+    override fun equals(other: Any?): Boolean {
+        return other is AbstractCourse && uuid == other.uuid
+    }
+
 }

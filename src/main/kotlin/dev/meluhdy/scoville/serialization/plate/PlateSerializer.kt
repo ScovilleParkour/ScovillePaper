@@ -11,7 +11,7 @@ import java.util.UUID
 
 object PlateSerializer: MelodiaSerializer<Plate>() {
 
-    class ParkourerBuilder: Builder<Plate>() {
+    class PlateBuilder: Builder<Plate>() {
 
         var course: UUID? = null
         var location: Location? = null
@@ -25,11 +25,11 @@ object PlateSerializer: MelodiaSerializer<Plate>() {
 
     }
 
-    override val builder: Builder<Plate> = ParkourerBuilder()
+    override fun getBuilder(): Builder<Plate> = PlateBuilder()
 
     override val steps: Array<SerializerElement<*, Plate>> = arrayOf(
-        SerializerElement("course", UUIDSerializer.nullable, { it.getCourse()?.uuid }, { value, obj -> (obj as ParkourerBuilder).course = value }),
-        SerializerElement("location", LocationSerializer.nullable, { it.location }, { value, obj -> (obj as ParkourerBuilder).location = value })
+        SerializerElement("course", UUIDSerializer.nullable, { it.getCourse()?.uuid }, { value, obj -> (obj as PlateBuilder).course = value }),
+        SerializerElement("location", LocationSerializer.nullable, { it.location }, { value, obj -> (obj as PlateBuilder).location = value })
     )
 
 }

@@ -1,6 +1,7 @@
 package dev.meluhdy.scoville.core.parkourer
 
 import dev.meluhdy.melodia.manager.MelodiaSavingManager
+import dev.meluhdy.melodia.utils.FileUtils
 import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.serialization.parkourer.ParkourerSerializer
 import kotlinx.serialization.json.JsonElement
@@ -9,8 +10,8 @@ import java.io.File
 
 object ParkourerManager: MelodiaSavingManager<Parkourer>() {
 
-    val baseFolder
-        get() = "${Scoville.plugin.dataFolder}${File.separator}players"
+    val baseFolder: String
+        get() = FileUtils.getFile(Scoville.plugin, "players").absolutePath
 
     fun get(player: Player): Parkourer? = get(player.uniqueId)
 

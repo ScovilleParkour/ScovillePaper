@@ -1,6 +1,7 @@
 package dev.meluhdy.scoville.core.plate
 
 import dev.meluhdy.melodia.manager.MelodiaSavingManager
+import dev.meluhdy.melodia.utils.FileUtils
 import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.core.course.AbstractCourse
 import dev.meluhdy.scoville.serialization.plate.PlateSerializer
@@ -9,8 +10,8 @@ import java.io.File
 
 object PlateManager : MelodiaSavingManager<Plate>() {
 
-    val baseFolder
-        get() = "${Scoville.plugin.dataFolder}${File.separator}plates"
+    val baseFolder: String
+        get() = FileUtils.getFile(Scoville.plugin, "plates").absolutePath
 
     fun getPlates(course: AbstractCourse) = get { plate -> plate.getCourse() == course }
 

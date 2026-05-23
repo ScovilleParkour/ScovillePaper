@@ -26,6 +26,6 @@ class RankupCourseSerializer: AbstractCourseSerializer<RankupCourse>() {
             RankupCourse.Rank.entries[diff] })
     )
 
-    override val builder: Builder<RankupCourse> = RankupCourseBuilder()
+    override fun getBuilder(): Builder<RankupCourse> = RankupCourseBuilder()
 
 }

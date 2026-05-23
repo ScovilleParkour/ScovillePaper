@@ -21,8 +21,8 @@ class Parkourer(uuid: UUID): MelodiaItem(uuid) {
     var currentlyPlaying: UUID? = null
     internal val courseCompletionCount: HashMap<UUID, Int> = hashMapOf()
     var rank: RankupCourse.Rank
-        get() = RankTrack.fromPlayer(this.getPlayer()!!)
-        set(r) = RankTrack.setGroup(this.getPlayer()!!, r)
+        get() = RankTrack.fromPlayer(this.uuid)
+        set(r) = RankTrack.setGroup(this.uuid, r)
     val checkpoints: HashMap<UUID, Location> = hashMapOf()
 
     fun getPlayer(): Player? = Bukkit.getPlayer(this.uuid)
@@ -34,15 +34,21 @@ class Parkourer(uuid: UUID): MelodiaItem(uuid) {
     fun hasCompletedCourse(course: AbstractCourse): Boolean = this.hasCompletedCourse(course.uuid)
 
     fun incrementCourseCompletions(course: UUID): Int {
+        if (!CourseManager.exists(course)) {
+            courseCompletionCount.remove(course)
+            return 0
+        }
         courseCompletionCount[course] = (courseCompletionCount[course] ?: 0) + 1
         return courseCompletionCount[course]!!
     }
     fun incrementCourseCompletions(course: AbstractCourse): Int = this.incrementCourseCompletions(course.uuid)
 
     fun getAllCourseCompletions(): HashMap<AbstractCourse, Int> {
-        return HashMap(courseCompletionCount
-            .filter { entry -> CourseManager.exists(entry.key) }
-            .mapKeys { entry -> CourseManager.get(entry.key)!! })
+        synchronized(CourseManager) {
+            return HashMap(courseCompletionCount
+                .mapNotNull { (uuid, count) -> CourseManager.get(uuid)?.let { it to count } }
+                .toMap())
+        }
     }
 
     fun getPlayingCourse(): AbstractCourse? = currentlyPlaying?.let { CourseManager.get(it) }
@@ -64,7 +70,7 @@ class Parkourer(uuid: UUID): MelodiaItem(uuid) {
             p.sendMessage(TextUtils.translate(Scoville.plugin, "chat.checkpoint.no_cp", p.locale()))
             return
         }
-        for (effect in p.activePotionEffects) {
+        for (effect in ArrayList(p.activePotionEffects)) {
             if (effect.type != PotionEffectType.NIGHT_VISION) p.removePotionEffect(effect.type)
         }
         p.teleport(checkpoint)

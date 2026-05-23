@@ -29,6 +29,6 @@ class OneJumpCourseSerializer: AbstractCourseSerializer<OneJumpCourse>() {
         SerializerElement("jumps", Int.serializer(), { it.jumps }, { jumps, builder -> (builder as OneJumpCourseBuilder).jumps = jumps })
     )
 
-    override val builder: Builder<OneJumpCourse> = OneJumpCourseBuilder()
+    override fun getBuilder(): Builder<OneJumpCourse> = OneJumpCourseBuilder()
 
 }

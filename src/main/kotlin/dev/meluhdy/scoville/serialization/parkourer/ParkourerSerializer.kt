@@ -31,7 +31,7 @@ object ParkourerSerializer: MelodiaSerializer<Parkourer>() {
 
     }
 
-    override val builder: Builder<Parkourer> = ParkourerBuilder()
+    override fun getBuilder(): Builder<Parkourer> = ParkourerBuilder()
 
     override val steps: Array<SerializerElement<*, Parkourer>> = arrayOf(
         SerializerElement("currentlyPlaying", String.serializer().nullable, { it.currentlyPlaying?.toString() }, { uuid, builder -> (builder as ParkourerBuilder).currentlyPlaying = uuid?.let { UUID.fromString(it) } }),
