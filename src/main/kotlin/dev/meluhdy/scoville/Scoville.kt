@@ -8,7 +8,6 @@ import dev.meluhdy.melodia.utils.LoggingUtils
 import dev.meluhdy.melodia.utils.TranslationFolder
 import dev.meluhdy.scoville.core.course.CourseManager
 import dev.meluhdy.scoville.core.parkourer.ParkourerManager
-import dev.meluhdy.scoville.core.plate.PlateManager
 import dev.meluhdy.scoville.event.listener.BroadcastListener
 import dev.meluhdy.scoville.event.listener.ParkourerPositionerListener
 import dev.meluhdy.scoville.event.listener.ParkourerUpdateListener
@@ -46,8 +45,7 @@ class Scoville : MelodiaPlugin() {
 
     override val savingManagers: Array<MelodiaSavingManager<*>> = arrayOf(
         ParkourerManager,
-        CourseManager,
-        PlateManager
+        CourseManager
     )
 
 }

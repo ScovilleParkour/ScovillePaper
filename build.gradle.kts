@@ -28,6 +28,8 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
     multiModule.tryMultiModule(":Melodia", "dev.meluhdy:melodia:1.0-SNAPSHOT")
     compileOnly("net.luckperms:api:5.4")
+    api("com.jeff-media:custom-block-data:2.2.4")
+    api("com.jeff-media:MorePersistentDataTypes:2.4.0")
 }
 
 val targetJavaVersion = 25
@@ -54,6 +56,9 @@ tasks.shadowJar {
         exclude(dependency("org.jetbrains.kotlin:.*"))
         exclude(dependency("org.jetbrains.kotlinx:kotlinx-serialization-core"))
     }
+
+    relocate("com.jeff_media.customblockdata", "dev.meluhdy.libs.customblockdata")
+    relocate("com.jeff_media.morepersistentdatatypes", "dev.meluhdy.libs.morepersistentdatatypes")
 }
 
 publishing {

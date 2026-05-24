@@ -1,11 +1,16 @@
 package dev.meluhdy.scoville.event.event
 
-import dev.meluhdy.scoville.core.plate.Plate
+import dev.meluhdy.scoville.core.course.AbstractCourse
 import org.bukkit.entity.Player
 import org.bukkit.event.HandlerList
 import org.bukkit.event.player.PlayerEvent
 
-class PlateEvent(p: Player, val plate: Plate, val plateType: Plate.PlateType) : PlayerEvent(p, true) {
+class PlateEvent(p: Player, val course: AbstractCourse, val plateType: PlateType) : PlayerEvent(p, true) {
+
+    enum class PlateType {
+        BEGIN,
+        END
+    }
 
     companion object {
         @JvmStatic

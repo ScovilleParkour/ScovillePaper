@@ -1,0 +1,12 @@
+# ------------
+# - NBT Keys -
+# ------------
+
+# The key for use for checkpoints, timers, and end plates
+course_key: "sco_course"
+
+# The key for use for tp signs/plates
+location_key: "sco_dest"
+
+# The key for use for tags
+tag_key: "sco_tag"
