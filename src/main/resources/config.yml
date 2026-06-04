@@ -1,3 +1,19 @@
+# -----------
+# - General -
+# -----------
+
+checkpoint_sign_format:
+  - "&8[&4Scoville&8]"
+  - "COURSE NAME"
+  - "&2✔ &aCheckpoint &2✔"
+  - "&7(right click)"
+
+tp_sign:
+  - "&8[&4Scoville&8]"
+  - "COURSE NAME"
+  - "&5⦿ &dTeleport &5⦿"
+  - "&7(right click)"
+
 # ------------
 # - NBT Keys -
 # ------------
@@ -10,3 +26,13 @@ location_key: "sco_dest"
 
 # The key for use for tags
 tag_key: "sco_tag"
+
+# -------------
+# - SAVE DATA -
+# -------------
+
+# The folder to store course data in
+course_folder: "courses"
+
+# The foldder to store player data in
+player_folder: "players"

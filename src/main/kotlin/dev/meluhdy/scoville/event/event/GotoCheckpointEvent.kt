@@ -1,11 +1,11 @@
 package dev.meluhdy.scoville.event.event
 
-import dev.meluhdy.scoville.core.course.AbstractCourse
+import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.bukkit.event.HandlerList
 import org.bukkit.event.player.PlayerEvent
 
-class CourseJoinEvent(p: Player, val course: AbstractCourse) : PlayerEvent(p) {
+class GotoCheckpointEvent(p: Player, val checkpoint: Location) : PlayerEvent(p) {
 
     companion object {
         @JvmStatic

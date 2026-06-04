@@ -9,6 +9,7 @@ import dev.meluhdy.melodia.utils.TranslationFolder
 import dev.meluhdy.scoville.core.course.CourseManager
 import dev.meluhdy.scoville.core.parkourer.ParkourerManager
 import dev.meluhdy.scoville.event.listener.BroadcastListener
+import dev.meluhdy.scoville.event.listener.EventForwardingListener
 import dev.meluhdy.scoville.event.listener.ParkourerPositionerListener
 import dev.meluhdy.scoville.event.listener.ParkourerUpdateListener
 import org.bukkit.event.Listener
@@ -36,7 +37,8 @@ class Scoville : MelodiaPlugin() {
     override val listeners: Array<Listener> = arrayOf(
         ParkourerUpdateListener,
         ParkourerPositionerListener,
-        BroadcastListener
+        BroadcastListener,
+        EventForwardingListener
     )
 
     override val translationFolder: TranslationFolder = TranslationFolder("lang", Locale.of("en"))

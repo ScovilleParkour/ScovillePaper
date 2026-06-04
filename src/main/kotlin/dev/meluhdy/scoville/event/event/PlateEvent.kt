@@ -5,7 +5,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.HandlerList
 import org.bukkit.event.player.PlayerEvent
 
-class PlateEvent(p: Player, val course: AbstractCourse, val plateType: PlateType) : PlayerEvent(p, true) {
+class PlateEvent(p: Player, val course: AbstractCourse, val plateType: PlateType) : PlayerEvent(p) {
 
     enum class PlateType {
         BEGIN,

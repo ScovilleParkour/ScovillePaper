@@ -62,18 +62,4 @@ class Parkourer(uuid: UUID): MelodiaItem(uuid) {
     fun getCheckpoint(course: AbstractCourse): Location? = this.getCheckpoint(course.uuid)
     fun getCheckpoint(uuid: UUID): Location? = this.checkpoints[uuid]
 
-    fun gotoCheckpoint(course: AbstractCourse) = this.gotoCheckpoint(course.uuid)
-    fun gotoCheckpoint(uuid: UUID) {
-        val p = this.getPlayer() ?: return
-        val checkpoint = this.getCheckpoint(uuid)
-        if (checkpoint == null) {
-            p.sendMessage(TextUtils.translate(Scoville.plugin, "chat.checkpoint.no_cp", p.locale()))
-            return
-        }
-        for (effect in ArrayList(p.activePotionEffects)) {
-            if (effect.type != PotionEffectType.NIGHT_VISION) p.removePotionEffect(effect.type)
-        }
-        p.teleport(checkpoint)
-    }
-
 }

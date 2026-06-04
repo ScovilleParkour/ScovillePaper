@@ -20,6 +20,7 @@ class UserCourse(uuid: UUID = UUID.randomUUID(), timeCreated: Long = System.curr
     }
 
     var difficulty: Difficulty = Difficulty.UNKNOWN
+    var tag: String? = null
     override var courseType = CourseType.USER
 
 }

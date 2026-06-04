@@ -4,9 +4,11 @@ import dev.meluhdy.scoville.core.course.courses.RankupCourse
 import net.luckperms.api.LuckPermsProvider
 import net.luckperms.api.model.group.Group
 import net.luckperms.api.model.user.User
+import net.luckperms.api.node.Node
 import net.luckperms.api.node.types.InheritanceNode
 import net.luckperms.api.track.Track
 import org.bukkit.entity.Player
+import org.bukkit.permissions.Permission
 import java.util.UUID
 import kotlin.uuid.Uuid
 
@@ -122,5 +124,16 @@ abstract class Tracked<T: Enum<*>> {
         return out.mapKeys { it.key.name } as HashMap<String, ArrayList<UUID>>
 
     }
+
+    fun Player.setPermission(string: String) {
+        luckPerms.userManager.loadUser(this.uniqueId).thenAccept {
+            it.data().add(Node.builder(string).build())
+            luckPerms.userManager.saveUser(it)
+        }
+    }
+
+    fun Player.isPermission(string: String): Boolean = this.hasPermission(string) && this.isPermissionSet(string)
+
+    fun Player.isPermission(permission: Permission): Boolean = this.hasPermission(permission) && this.isPermissionSet(permission)
 
 }

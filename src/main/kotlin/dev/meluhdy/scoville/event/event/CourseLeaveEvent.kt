@@ -5,7 +5,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.HandlerList
 import org.bukkit.event.player.PlayerEvent
 
-class CourseLeaveEvent(p: Player, val course: AbstractCourse) : PlayerEvent(p, true) {
+class CourseLeaveEvent(p: Player, val course: AbstractCourse) : PlayerEvent(p) {
 
     companion object {
         @JvmStatic
