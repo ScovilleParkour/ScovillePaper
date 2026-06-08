@@ -5,6 +5,7 @@ import dev.meluhdy.melodia.utils.FileUtils.requireStringList
 import dev.meluhdy.melodia.utils.TextUtils
 import dev.meluhdy.melodia.utils.fromLegacyMessage
 import dev.meluhdy.melodia.utils.next
+import dev.meluhdy.melodia.utils.sendMessage
 import dev.meluhdy.melodia.utils.toLegacyMessage
 import dev.meluhdy.scoville.Scoville
 import dev.meluhdy.scoville.core.course.AbstractCourse
@@ -80,6 +81,10 @@ object ParkourerUpdateListener: Listener {
         if (e.action != Action.RIGHT_CLICK_BLOCK) return
 
         val player = e.player
+        if (!player.isOnGround) {
+            player.sendMessage(Scoville.plugin, "chat.checkpoint.not_on_ground")
+            return
+        }
         val block = e.clickedBlock ?: return
         val state = block.state
         if (state !is Sign) return
@@ -95,7 +100,7 @@ object ParkourerUpdateListener: Listener {
         val parkourer = ParkourerManager.getOrCreate(player) { Parkourer(player) }
 
         parkourer.setCheckpoint(course, player.location)
-        player.sendMessage(TextUtils.translate(Scoville.plugin, "chat.checkpoint.set", player.locale(), course.coloredName ?: course.name ?: "UNKNOWN COURSE").fromLegacyMessage())
+        player.sendMessage(Scoville.plugin, "chat.checkpoint.set", course.coloredName ?: course.name ?: "UNKNOWN COURSE")
         player.playSound(player.location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.3f, 0.5f)
 
         e.isCancelled = true

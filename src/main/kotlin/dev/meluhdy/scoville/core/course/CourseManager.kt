@@ -18,7 +18,7 @@ object CourseManager : MelodiaSavingManager<AbstractCourse>() {
 
     override fun getFile(obj: AbstractCourse): File = Path(baseFolder, obj.courseType.str, "${obj.uuid}.json").toFile()
 
-    override fun loadSaves(): Array<File> = File(baseFolder).walkTopDown().toCollection(ArrayList()).toTypedArray()
+    override fun loadSaves(): Array<File> = File(baseFolder).walkTopDown().filter { it.isFile }.toList().toTypedArray()
 
     override fun serializeObject(obj: AbstractCourse): JsonElement = serializer.encodeToJsonElement(AbstractCourseSerializer.getSerializer(obj) as MelodiaSerializer<AbstractCourse>, obj)
 
