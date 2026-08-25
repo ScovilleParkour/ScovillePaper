@@ -25,7 +25,7 @@ repositories {
 
 dependencies {
     compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
-    compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:26.2.build.+")
     multiModule.tryMultiModule(":Melodia", "dev.meluhdy:melodia:1.0-SNAPSHOT")
     compileOnly("net.luckperms:api:5.4")
 }

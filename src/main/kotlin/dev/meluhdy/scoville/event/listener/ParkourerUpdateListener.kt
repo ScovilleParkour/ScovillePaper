@@ -27,12 +27,18 @@ import org.bukkit.Sound
 import org.bukkit.block.Sign
 import org.bukkit.block.sign.Side
 import org.bukkit.configuration.file.YamlConfiguration
+import org.bukkit.entity.Entity
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import java.util.UUID
+import kotlin.math.floor
+
+val Player.isActuallyOnGround: Boolean
+    get() = (this as Entity).isOnGround
 
 object ParkourerUpdateListener: Listener {
 
@@ -81,7 +87,7 @@ object ParkourerUpdateListener: Listener {
         if (e.action != Action.RIGHT_CLICK_BLOCK) return
 
         val player = e.player
-        if (!player.isOnGround) {
+        if (!player.isActuallyOnGround) {
             player.sendMessage(Scoville.plugin, "chat.checkpoint.not_on_ground")
             return
         }

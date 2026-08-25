@@ -20,8 +20,10 @@ object CourseManager : MelodiaSavingManager<AbstractCourse>() {
 
     override fun loadSaves(): Array<File> = File(baseFolder).walkTopDown().filter { it.isFile }.toList().toTypedArray()
 
+    @Suppress("UNCHECKED_CAST")
     override fun serializeObject(obj: AbstractCourse): JsonElement = serializer.encodeToJsonElement(AbstractCourseSerializer.getSerializer(obj) as MelodiaSerializer<AbstractCourse>, obj)
 
+    @Suppress("UNCHECKED_CAST")
     override fun deserializeObject(jsonElement: JsonElement): AbstractCourse = serializer.decodeFromJsonElement(AbstractCourseSerializer.getSerializer(jsonElement) as MelodiaSerializer<AbstractCourse>, jsonElement)
 
     fun get(name: String): AbstractCourse? = this.get { course -> course.name == name }

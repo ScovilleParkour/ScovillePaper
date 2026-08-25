@@ -2,7 +2,7 @@ name: ScovilleCore
 version: '$version'
 main: dev.meluhdy.scoville.Scoville
 description: '$description'
-api-version: '1.21'
+api-version: '26.2'
 load: POSTWORLD
 author: meluwudy
 website: meluhdy.dev
